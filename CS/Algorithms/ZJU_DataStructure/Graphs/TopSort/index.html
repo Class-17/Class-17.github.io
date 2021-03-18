@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Top Sort | Class's Blog</title><meta name="keywords" content="Graphs,TopSort,DAG,AOE"><meta name="author" content="Class,verfolgen17@gmail.com"><meta name="copyright" content="Class"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="拓扑排序及关键路径问题计算">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Top Sort">
+<meta property="og:url" content="http://classitblog.com/CS/Algorithms/ZJU_DataStructure/Graphs/TopSort/index.html">
+<meta property="og:site_name" content="Class&#39;s Blog">
+<meta property="og:description" content="拓扑排序及关键路径问题计算">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://classitblog.com/images/cover/TopSort.png">
+<meta property="article:published_time" content="2021-03-03T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-03-18T11:28:29.633Z">
+<meta property="article:author" content="Class">
+<meta property="article:tag" content="Graphs">
+<meta property="article:tag" content="TopSort">
+<meta property="article:tag" content="DAG">
+<meta property="article:tag" content="AOE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://classitblog.com/images/cover/TopSort.png"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://classitblog.com/CS/Algorithms/ZJU_DataStructure/Graphs/TopSort/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-03-18 19:28:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">14</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/Artitalk/"><i class="fa-fw fas fa-comment"></i><span> Artitalk</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/cover/TopSort.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Class's Blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/Artitalk/"><i class="fa-fw fas fa-comment"></i><span> Artitalk</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Top Sort</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-03-03T00:00:00.000Z" title="Created 2021-03-03 08:00:00">2021-03-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-03-18T11:28:29.633Z" title="Updated 2021-03-18 19:28:29">2021-03-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CS/">CS</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CS/Algorithms/">Algorithms</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CS/Algorithms/ZJU-DataStructure/">ZJU_DataStructure</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CS/Algorithms/ZJU-DataStructure/Graphs/">Graphs</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>8min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><blockquote>
+<ul>
+<li>在现实生活中，某些事物可以用<strong>有向无环图（Directed Acyclic Graph, DAG）</strong> 来表述。这种有向无环图通常也称作“流程图”，比如，施工流程图、生产流程图，图中每个顶点可以代表一个具体的工序，每条有向边则反映了两个工序的前后次序。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>拓扑排序</strong> 是指用有向无环图中各顶点构成有序序列。设图中一顶点 $v_i$ 到另一顶点 $v_j$ 存在一条路径，那么 $v_j$ 在此图的拓扑排序序列中位于 $v_i$ 之后。</li>
+<li>如果不是无环图，拓扑排序将不存在，因为如果有环路的话，那么对于环路上的两个顶点 $v$ 和 $w$ ，既可以认为 $v$ 在 $w$ 之前，也可以认为 $w$ 是在 $v$ 之前，它们之间的先后顺序是不确定的。拓扑排序算法可以用来检测一个有向图是否为 <code>DAG</code> 。</li>
+</ul>
+</blockquote>
+<p><strong>拓扑排序C代码实现</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">TopSort</span><span class="params">(LGraph Graph, Vertex TopOrder[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> InDegree[MaxVertexNum] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++) &#123;</span><br><span class="line">        PtrToAdjVNode Rear = Graph-&gt;G[V].FirstEdge;</span><br><span class="line">        <span class="keyword">while</span> (Rear) &#123;</span><br><span class="line">            InDegree[Rear-&gt;AdjV]++;</span><br><span class="line">            Rear = Rear-&gt;Next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">    Queue Q = CreateQueue();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++)</span><br><span class="line">        <span class="keyword">if</span>(InDegree[V] == <span class="number">0</span>) Push(Q, V);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!IsEmpty(Q)) &#123;</span><br><span class="line">        Vertex V = Pop(Q);</span><br><span class="line">        TopOrder[cnt++] = V;</span><br><span class="line">        PtrToAdjVNode Rear = Graph-&gt;G[V].FirstEdge;</span><br><span class="line">        <span class="keyword">while</span> (Rear) &#123;</span><br><span class="line">            <span class="keyword">if</span>(--InDegree[Rear-&gt;AdjV] == <span class="number">0</span>) </span><br><span class="line">                Push(Q, Rear-&gt;AdjV);</span><br><span class="line">            Rear = Rear-&gt;Next;</span><br><span class="line">        &#125;</span><br><span class="line">        time = Earliest[V] &gt; time ? Earliest[V] : time;</span><br><span class="line">        Graph-&gt;Nv--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(cnt != Graph-&gt;Nv) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>在以上拓扑排序算法中，重点在于 <code>while</code> 循环中，在寻找“未输出的入度为 0 的顶点”，如果检查整个 <code>InDegree</code> 数组，所需的时间为 $O(\vert V \vert)$，且循环结构决定了这一步要执行 $\vert V \vert$ 次，此时算法的时间复杂度为 $O(\vert V \vert ^2)$。</li>
+<li>实际上，每次图的改变往往只涉及少数顶点的入度发生变化，没必要每次都查看整个 <code>InDegree</code> 数组。为了提高算法的时效，以上拓扑排序算法中采用“ <strong>将入度为 0 的顶点单独存放</strong> ”的方法，每当删除一个顶点而改变其他顶点的入度时，检测到入度为 0 的顶点，就存放到这个专门开辟的存储区域，而这个区域可以采用队列来实现较为合适。</li>
+<li>开始时，将所有入度为 0 的顶点入队；当队列不为空时，取出一个顶点 <code>v</code> 并输出；然后将与 <code>v</code> 相邻的顶点入度减 1 。当产生新的入度为 0 的顶点时，将其入队。重复这一过程直到队列为空时算法终止。所要寻找的拓扑排序为各顶点从队列中取出的顺序。</li>
+<li>使用此方法， 采用邻接表，算的时间复杂度为 $O(\vert V \vert + \vert E \vert)$。</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="关键路径计算"><a href="#关键路径计算" class="headerlink" title="关键路径计算"></a>关键路径计算</h2><blockquote>
+<ul>
+<li>现实生活中，许多任务可以分解为一系列活动，各个活动之间时相互关联的，关系可以是串行的，也可以是并行的。<strong>合理的调度和安排各活动</strong>，保证在计划时间内完成任务是十分重要的。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>仿照拓扑排序给出的网络表示，一个工程可以先用有向无环图表示。图中的顶点代表活动，并记录完成它的时间。图中的边表示活动的先后关系，有向边 <code>&lt;v , w&gt;</code> 意味着活动 <code>v</code> 必须在活动 <code>w</code> 开始之前完成。这种顶点表示活动或任务的图也成为 <strong>AOV（Activity On Vertex）图</strong> 。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>但为了便于分析图中的关键路径，将活动为顶点的 AOV图 转换为活动为边的 <strong>AOE （Activity On Edge）图</strong> ，有向边表示任务或活动，边上的权表示该活动的持续时间。在 AOE图中顶点表示事件，每个事件对应一个活动及其与之相关的其他活动的完成。</li>
+<li>如果一个活动是在几个活动完成之后能开始的话，需要增加虚构的边和节点，来表示活动之间的这种依赖关系。</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="关键路径算法"><a href="#关键路径算法" class="headerlink" title="关键路径算法"></a>关键路径算法</h3><blockquote>
+<ul>
+<li>为了能够确定工程的最早完成时间，只需 <strong>在开始事件到完成事件间寻找最长的有向路径</strong> ，它的长度就是答案。路径长度是指这条路径上所有活动事件的总和。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>可以通过求解树中每个节点（事件）的最早完成时间，来计算整个工程的最早完成时间。</li>
+<li>若 <code>Earliest[i]</code> 表示节点 <code>i</code> 的最早完成时间， $C_{v, w}$ 表示 $&lt;v, w&gt;$ 边的权重，则有：<blockquote>
+<p>$Earliest[1] = 0$<br>$Earliest[i] = max_{&lt;v, w&gt; \in E} (Earliest[v] + C_{v, w})$</p>
+</blockquote>
+</li>
+<li>按照 AOE图 中各事件的先后次序，从起始时间开始，依次用上式求出各事件节点的最早完成时间，直到最后推算到结束时间为止，也就得到了整个工程的最早完成时间。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>同样可以求解每一事件 <code>i</code> 在不影响整个工程完成情况下的允许最晚完成时间 <code>Latest[i]</code> 。计算是 <strong>从结束事件开始</strong> ，设结束顶点为事件 <code>n</code> ， <strong>按事件拓扑的相反次序逐个顶点推算</strong> ，直到工程的最初顶点为止。结束顶点的最晚完成事件等于他的最早完成时间，其他顶点按下式计算：<blockquote>
+<p>$Latest[n] = Earliest[n]$<br>$latest[v] = min_{&lt;v, w&gt; \in E}(Latest[w] - C_{v, w})$</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>各顶点的最早和最晚完成时间求出后，能够很容易的确定在不影响工程进度的前提下，每一活动最多能耽误的事件长短。这个事件是否为 0 决定了该活动是否为 <strong>关键路径</strong> 。</li>
+<li>求 <code>&lt;v, w&gt;</code> 边上的允许耽误的最大时间 $Delay_{v, w}$ 采用的计算公式为：<blockquote>
+<p>$Delay_{v, w} = Latest[w] - Earliest[v] - C_{v, w}$</p>
+</blockquote>
+</li>
+<li>最大延误时间为 0 的活动都是 <strong>关键活动（Critical Activity）</strong> ，有关键活动构成的从头至尾的路径就是 <strong>关键路径（Critical Path）</strong> 。</li>
+</ul>
+</blockquote>
+<p><strong>关键路径算法C代码实现</strong> ：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetEarliest</span><span class="params">(LGraph Graph)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> InDegree[MaxVertexNum] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++) &#123;</span><br><span class="line">        PtrToAdjVNode Rear = Graph-&gt;G[V].FirstEdge;</span><br><span class="line">        <span class="keyword">while</span> (Rear) &#123;</span><br><span class="line">            InDegree[Rear-&gt;AdjV]++;</span><br><span class="line">            Rear = Rear-&gt;Next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;   </span><br><span class="line"></span><br><span class="line">    Queue Q = CreateQueue();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++)</span><br><span class="line">        <span class="keyword">if</span>(InDegree[V] == <span class="number">0</span>) &#123;</span><br><span class="line">            Push(Q, V);</span><br><span class="line">            Graph-&gt;Earliest[V] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> VCount = <span class="number">0</span>, time = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (!IsEmpty(Q)) &#123;</span><br><span class="line">        Vertex V = Pop(Q);</span><br><span class="line">        PtrToAdjVNode Rear = Graph-&gt;G[V].FirstEdge; </span><br><span class="line">        <span class="keyword">while</span> (Rear) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Graph-&gt;Earliest[Rear-&gt;AdjV] &lt; </span><br><span class="line">                Graph-&gt;Earliest[V] + Rear-&gt;Weight)</span><br><span class="line">                Graph-&gt;Earliest[Rear-&gt;AdjV] = </span><br><span class="line">                Graph-&gt;Earliest[V] + Rear-&gt;Weight;</span><br><span class="line">            <span class="keyword">if</span>(--InDegree[Rear-&gt;AdjV] == <span class="number">0</span>) Push(Q, Rear-&gt;AdjV);</span><br><span class="line">            Rear = Rear-&gt;Next;</span><br><span class="line">        &#125;</span><br><span class="line">        time = Graph-&gt;Earliest[V] &gt; time ? Graph-&gt;Earliest[V] : time;</span><br><span class="line">        VCount++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(VCount &lt; Graph-&gt;Nv) <span class="keyword">return</span> ERROR;</span><br><span class="line">    <span class="keyword">return</span> time;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetLatest</span><span class="params">(LGraph Graph, Vertex V)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(Graph-&gt;G[V].FirstEdge == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> Graph-&gt;Latest[V];</span><br><span class="line">    PtrToAdjVNode Rear = Graph-&gt;G[V].FirstEdge;</span><br><span class="line">    <span class="keyword">while</span> (Rear) &#123;</span><br><span class="line">        <span class="comment">// Recursively get LCT of each Vertex.</span></span><br><span class="line">        <span class="keyword">int</span> Tmp = GetLatest(Graph, Rear-&gt;AdjV) - Rear-&gt;Weight;</span><br><span class="line">        Graph-&gt;Latest[V] = Tmp &lt; Graph-&gt;Latest[V] ? Tmp : Graph-&gt;Latest[V];</span><br><span class="line">        Rear = Rear-&gt;Next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> Graph-&gt;Latest[V];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">GetDelay</span><span class="params">(LGraph Graph, <span class="keyword">int</span> time)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> InDegree[MaxVertexNum] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++) &#123;</span><br><span class="line">        PtrToAdjVNode Rear = Graph-&gt;G[V].FirstEdge;</span><br><span class="line">        <span class="keyword">while</span> (Rear) &#123;</span><br><span class="line">            InDegree[Rear-&gt;AdjV]++;</span><br><span class="line">            Rear = Rear-&gt;Next;</span><br><span class="line">        &#125;</span><br><span class="line">        Graph-&gt;Latest[V] = time;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Get LCT of each Vertex.</span></span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(InDegree[V] == <span class="number">0</span>) &#123;</span><br><span class="line">            PtrToAdjVNode Rear = Graph-&gt;G[V].FirstEdge;</span><br><span class="line">            <span class="keyword">while</span> (Rear) &#123;</span><br><span class="line">                <span class="keyword">int</span> Tmp = GetLatest(Graph, Rear-&gt;AdjV) - Rear-&gt;Weight;</span><br><span class="line">                Graph-&gt;Latest[V] = Tmp &lt; Graph-&gt;Latest[V] ? Tmp : Graph-&gt;Latest[V];</span><br><span class="line">                Rear = Rear-&gt;Next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Calculate Delay Time of each Edge.</span></span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++) &#123;</span><br><span class="line">        PtrToAdjVNode Rear = Graph-&gt;G[V].FirstEdge;</span><br><span class="line">        <span class="keyword">while</span> (Rear) &#123;</span><br><span class="line">            Graph-&gt;Delay[V][Rear-&gt;AdjV] = Graph-&gt;Latest[Rear-&gt;AdjV] - </span><br><span class="line">                                          Graph-&gt;Earliest[V] -</span><br><span class="line">                                          Rear-&gt;Weight;</span><br><span class="line">            Rear = Rear-&gt;Next;</span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintCriticalPath</span><span class="params">(LGraph Graph)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++) &#123;</span><br><span class="line">        PtrToAdjVNode Rear = Graph-&gt;G[V].FirstEdge;</span><br><span class="line">        <span class="keyword">while</span> (Rear) &#123;</span><br><span class="line">            <span class="keyword">if</span>(Graph-&gt;Delay[V][Rear-&gt;AdjV] == <span class="number">0</span>)</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%d-&gt;%d\n&quot;</span>, V + <span class="number">1</span>, Rear-&gt;AdjV + <span class="number">1</span>);</span><br><span class="line">            Rear = Rear-&gt;Next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:verfolgen17@gmail.com">Class</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://classitblog.com/CS/Algorithms/ZJU_DataStructure/Graphs/TopSort/">http://classitblog.com/CS/Algorithms/ZJU_DataStructure/Graphs/TopSort/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Graphs/">Graphs</a><a class="post-meta__tags" href="/tags/TopSort/">TopSort</a><a class="post-meta__tags" href="/tags/DAG/">DAG</a><a class="post-meta__tags" href="/tags/AOE/">AOE</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/TopSort.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/CS/Algorithms/ZJU_DataStructure/Graphs/MinimumSpanningTree/"><img class="next-cover" src="/images/cover/MinimumSpanningTree.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Minimum Spanning Tree</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/CS/Algorithms/ZJU_DataStructure/Graphs/BasicGraph/" title="Basic Graph"><img class="cover" src="/images/cover/BasicGraph.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-25</div><div class="title">Basic Graph</div></div></a></div><div><a href="/CS/Algorithms/ZJU_DataStructure/Graphs/MinimumSpanningTree/" title="Minimum Spanning Tree"><img class="cover" src="/images/cover/MinimumSpanningTree.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-02</div><div class="title">Minimum Spanning Tree</div></div></a></div><div><a href="/CS/Algorithms/ZJU_DataStructure/Graphs/ShortestPath/" title="Shortest Path"><img class="cover" src="/images/cover/ShortestPath.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-01</div><div class="title">Shortest Path</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Class</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">14</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">24</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Class-17"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Class-17" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:verfolgen17@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">New articles about Graphs are upload!</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F"><span class="toc-number">1.</span> <span class="toc-text">拓扑排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%E8%AE%A1%E7%AE%97"><span class="toc-number">2.</span> <span class="toc-text">关键路径计算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84%E7%AE%97%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text">关键路径算法</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/CS/Algorithms/ZJU_DataStructure/Graphs/TopSort/" title="Top Sort"><img src="/images/cover/TopSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Top Sort"/></a><div class="content"><a class="title" href="/CS/Algorithms/ZJU_DataStructure/Graphs/TopSort/" title="Top Sort">Top Sort</a><time datetime="2021-03-03T00:00:00.000Z" title="Created 2021-03-03 08:00:00">2021-03-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/CS/Algorithms/ZJU_DataStructure/Graphs/MinimumSpanningTree/" title="Minimum Spanning Tree"><img src="/images/cover/MinimumSpanningTree.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Minimum Spanning Tree"/></a><div class="content"><a class="title" href="/CS/Algorithms/ZJU_DataStructure/Graphs/MinimumSpanningTree/" title="Minimum Spanning Tree">Minimum Spanning Tree</a><time datetime="2021-03-02T00:00:00.000Z" title="Created 2021-03-02 08:00:00">2021-03-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/CS/Algorithms/ZJU_DataStructure/Graphs/ShortestPath/" title="Shortest Path"><img src="/images/cover/ShortestPath.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shortest Path"/></a><div class="content"><a class="title" href="/CS/Algorithms/ZJU_DataStructure/Graphs/ShortestPath/" title="Shortest Path">Shortest Path</a><time datetime="2021-03-01T00:00:00.000Z" title="Created 2021-03-01 08:00:00">2021-03-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/CS/Algorithms/ZJU_DataStructure/Graphs/BasicGraph/" title="Basic Graph"><img src="/images/cover/BasicGraph.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Basic Graph"/></a><div class="content"><a class="title" href="/CS/Algorithms/ZJU_DataStructure/Graphs/BasicGraph/" title="Basic Graph">Basic Graph</a><time datetime="2021-02-25T00:00:00.000Z" title="Created 2021-02-25 08:00:00">2021-02-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/CS/Algorithms/ZJU_DataStructure/Trees/DisjointSet/" title="Disjoint Set"><img src="/images/cover/DisjointSet.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Disjoint Set"/></a><div class="content"><a class="title" href="/CS/Algorithms/ZJU_DataStructure/Trees/DisjointSet/" title="Disjoint Set">Disjoint Set</a><time datetime="2021-02-01T09:00:00.000Z" title="Created 2021-02-01 17:00:00">2021-02-01</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Class</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>
