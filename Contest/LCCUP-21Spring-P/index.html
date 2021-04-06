@@ -1,0 +1,399 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LCCUP'21 春季赛 个人赛题解 | Class's Blog</title><meta name="keywords" content="Sort,Two Pointers,Math,Heap,Greedy"><meta name="author" content="Class,verfolgen17@gmail.com"><meta name="copyright" content="Class"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="力扣杯21春季赛-个人赛-题解（前三题）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LCCUP&#39;21 春季赛 个人赛题解">
+<meta property="og:url" content="http://classitblog.com/Contest/LCCUP-21Spring-P/index.html">
+<meta property="og:site_name" content="Class&#39;s Blog">
+<meta property="og:description" content="力扣杯21春季赛-个人赛-题解（前三题）">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://classitblog.com/images/cover/LCCUP-21Spring-P.png">
+<meta property="article:published_time" content="2021-04-06T01:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-06T11:30:09.250Z">
+<meta property="article:author" content="Class">
+<meta property="article:tag" content="Sort">
+<meta property="article:tag" content="Two Pointers">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Heap">
+<meta property="article:tag" content="Greedy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://classitblog.com/images/cover/LCCUP-21Spring-P.png"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://classitblog.com/Contest/LCCUP-21Spring-P/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-06 19:30:09'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">31</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/Artitalk/"><i class="fa-fw fas fa-comment"></i><span> Artitalk</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/cover/LCCUP-21Spring-P.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Class's Blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/Artitalk/"><i class="fa-fw fas fa-comment"></i><span> Artitalk</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">LCCUP'21 春季赛 个人赛题解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-04-06T01:00:00.000Z" title="Created 2021-04-06 09:00:00">2021-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-04-06T11:30:09.250Z" title="Updated 2021-04-06 19:30:09">2021-04-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Contest/">Contest</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>9min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="采购方案"><a href="#采购方案" class="headerlink" title="采购方案"></a>采购方案</h2><p>小力将 <code>N</code> 个零件的报价存于数组 <code>nums</code> 。小力预算为 <code>target</code> ，假定小力仅购买两个零件，要求购买零件的花费不超过预算，请问他有多少种采购方案。</p>
+<p>注意：答案需要以 <code>1e9 + 7 (1000000007)</code> 为底取模，如：计算初始结果为：<code>1000000008</code> ，请返回 <code>1</code></p>
+<p><strong>示例 1</strong>：</p>
+<blockquote>
+<p>输入： <code>nums = [2,5,3,5]</code> , <code>target = 6</code></p>
+<p>输出： <code>1</code></p>
+<p>解释：预算内仅能购买 <code>nums[0]</code> 与 <code>nums[2]</code>。</p>
+</blockquote>
+<p><strong>示例 2</strong>：</p>
+<blockquote>
+<p>输入： <code>nums = [2,2,1,9]</code> , <code>target = 10</code></p>
+<p>输出： <code>4</code></p>
+<p>解释：符合预算的采购方案如下：<br>  <code>nums[0] + nums[1] = 4</code><br>  <code>nums[0] + nums[2] = 3</code><br>  <code>nums[1] + nums[2] = 3</code><br>  <code>nums[2] + nums[3] = 10</code></p>
+</blockquote>
+<p><strong>提示</strong>：</p>
+<blockquote>
+<ul>
+<li><code>2 &lt;= nums.length &lt;= 10^5</code></li>
+<li><code>1 &lt;= nums[i], target &lt;= 10^5</code></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h3><p><strong>本题标签</strong>： <strong>排序</strong> ; <strong>双指针</strong> ; <strong>动态循环</strong></p>
+<blockquote>
+<ul>
+<li>题目的问题描述比较直白，在 <code>nums</code> 数组中统计两者相加和小于 <code>target</code> 情况的总数。</li>
+<li>比较直白的思想是直接从数组 <code>0</code> 号元素开始起， 依次枚举其后续元素，两者相加和小于 <code>target</code> ，计数加 <code>1</code> 。但此算法显然太过暴力，时间复杂度为 $O(N^2)$ 。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>通过进一步的分析题目发现，若在原序列有序的情况下，问题似乎有更好的解法；</li>
+<li>假定有非递减序列 $\{a_0, a_1, a_2, \cdots, a_n\}$ , 则有：<blockquote>
+<ol>
+<li>$a_i + a_{j - 1} \le a_i + a_j \quad 其中 \quad 0 \le i &lt; j - 1 &lt; n$ </li>
+<li>$a_i + a_j \le a_{i + 1} + a_j \quad 其中 \quad 0 &lt; i + 1 &lt; j &lt; n $</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>由 <strong>性质1</strong> 可得：若有 $a_i + a_j \le target$ 则有 $a_i + a_{j - 1} \le target$ ， 所以<strong>对第二元素的枚举选择由序列最后开始</strong> 。</li>
+<li>由 <strong>性质2</strong> 可得：若有 $a_i + a_j &gt; target$ 则必有 $a_{i + 1} + a_j &gt; target$ ，故在进行第二层循环即对第二元素的枚举时可 <strong>对整体序列进行剪切</strong> ，<strong>不断缩小序列规模</strong> ，直至待处理序列为 <code>0</code> 。</li>
+<li>由上述两步，可得，在选择 <code>i </code>元素，并确定 <code>j</code> 元素的最大位置之后，<code>j</code> 之前的元素必定满足与 <code>i</code> 相加小于等于 <code>target</code> ，故 <code>i</code> 号元素的可行方案次数即可通过 <code>j - i</code> 来确定，不断累积此值，直至 <code>i &gt;= j</code> 为止，计算出所有可行方案次数。</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="AC-代码"><a href="#AC-代码" class="headerlink" title="AC 代码"></a>AC 代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">purchasePlans</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        sort(nums.begin(), nums.end());</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> total = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = nums.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">            <span class="keyword">while</span> (j &gt; i &amp;&amp; nums[i] + nums[j] &gt; target) j--;</span><br><span class="line">            total += j - i;</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> total % <span class="keyword">int</span>(<span class="number">1e9</span> + <span class="number">7</span>);  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><blockquote>
+<p>由上述算法实现代码可较明显的分析出算法的时间复杂度；首先使用 <code>sort</code> 函数对序列进行排序，时间复杂度为 $O(NlogN)$ ， 再次为一个 <strong>动态循环</strong> ，之所以称之为动态循环，是因为循环的大小在不断减小；第二层循环由上述所得性质得出，通过比较判断，不断缩小 <code>k</code> 的大小。 故此二层循环的总和时间复杂度为 $O(N_i + N_k) = O(N)$ ， 再综合上述排序算法的使用，于是可得算法总时间复杂度为 $O(NlogN)$ 。</p>
+</blockquote>
+<hr>
+<h2 id="乐团占位"><a href="#乐团占位" class="headerlink" title="乐团占位"></a>乐团占位</h2><p>某乐团的演出场地可视作 <code>num * num</code> 的二维矩阵 <code>grid</code>（左上角坐标为 <code>[0,0]</code> )，每个位置站有一位成员。乐团共有 <code>9</code> 种乐器，乐器编号为 <code>1~9</code> ，每位成员持有 <code>1</code> 个乐器。</p>
+<p>为保证声乐混合效果，成员站位规则为：自 <code>grid</code> 左上角开始顺时针螺旋形向内循环以 <code>1，2，...，9</code> 循环重复排列。例如当 <code>num = 5</code> 时，站位如图所示</p>
+<p><img src="../../images/content/OrchestraLayout-P1.png" alt="p1"></p>
+<p>请返回位于场地坐标 <code>[Xpos,Ypos]</code> 的成员所持乐器编号。</p>
+<p><strong>示例 1：</strong></p>
+<blockquote>
+<p>输入： <code>num = 3, Xpos = 0, Ypos = 2</code></p>
+<p>输出： <code>3</code></p>
+<p>解释：<br><img src="../../images/content/OrchestraLayout-P2.png" alt="p2"></p>
+</blockquote>
+<p><strong>示例 2：</strong></p>
+<blockquote>
+<p>输入： <code>num = 4, Xpos = 1, Ypos = 2</code></p>
+<p>输出： <code>5</code></p>
+<p>解释：<br><img src="../../images/content/OrchestraLayout-P1.png" alt="p3"></p>
+</blockquote>
+<blockquote>
+<p><strong>提示</strong>：</p>
+<ul>
+<li><code>1 &lt;= num &lt;= 10^9</code></li>
+<li><code>0 &lt;= Xpos, Ypos &lt; num</code></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="题目分析-1"><a href="#题目分析-1" class="headerlink" title="题目分析"></a>题目分析</h3><p><strong>本题标签</strong>： <strong>数论</strong></p>
+<blockquote>
+<p>分析题目可得，计算成员站位，实际上就是计算其按照题目所给规律顺序而得到的序号之后对 <code>9</code> 取余即可，例如题干给出的 <code>num = 5</code>， 若取 <code>Xpos = 1, Ypos = 2</code> 其序号为 <code>18</code> 故其所持乐器为 <code>18 % 2 = 0 -&gt; 9</code> 。</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>进一步分析题目可发现，此 <strong>规律顺序在方格中的路径方向分为四种方向</strong> : “向右，向下，向左，向上”， 又进一步发现，节点的顺序路径可分为其所在层及其所在层之外（如下图所示）：</li>
+</ul>
+</blockquote>
+<p><img src="../../images/contents/OrchestraLayout-P4.png" alt="alt p4"></p>
+<blockquote>
+<ul>
+<li>故可根据方格，建立坐标系，并将方格使用函数 $y = x$ 及 $y = -x + num$ 划分为 $4$ 个区域。（注：这里的 $num$ 做了 <code>-1</code> 处理 以符合坐标要求） ，<strong>节点的路径方向在各区域内是完全一致的</strong>。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>由上图可发现，图中以 <code>num = 5, Xpos = 1, Ypos = 2</code> 作为示例，其所经过的路径用 <em>绿色</em> 和 <em>蓝色</em> 表示，未经过的路径用 <em>红色</em> 表示。经过的路径其中 <em>红色</em> 的部分为其所处圈层外所经过的路径， <em>蓝色</em> 部分为其所处圈层所经过的路径。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>故可分析得出，无论 <em>蓝色区域</em> 为多大， <em>绿色区域</em> 都是固定的。</li>
+<li>所以可以通过计算出其所处圈层的方式，计算出红色部分，再依据其具体位置及所处圈层，计算出蓝色部分，即可求得其 <em>序号</em>，从而计算出其 <em>所持乐器</em> 编号。</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h3><blockquote>
+<ol>
+<li>首先对题目所给 <code>num</code> 进行 <code>-1</code> 处理，然后利用函数 $y = x$ 及 $y = -x + num$  计算出其所处区域 <code>Quadrant</code> 。</li>
+<li>根据 <code>Quadrant</code> 分别计算出其所处圈层的边长 <code>edge</code> <blockquote>
+<p> 由图4 可看出，所在圈层的边长即为 其所在区域两函数的距离，故根据 <code>Quadrant</code> ，通过不同的计算方式，求得相应 <code>edge</code> 即可</p>
+</blockquote>
+</li>
+<li>使用 <code>edge</code> 和 <code>num</code> 计算出 <em>绿色区域</em> 。</li>
+<li> 根据 <code>Quadrant</code> 计算节点与  $y = x$ 或 $y = -x + num$ 的距离，然后再加上 <code>Quadrant * edge</code> 计算出 <em>蓝色区域</em>。 </li>
+<li>两者相加，取余，求得最终结果。</li>
+</ol>
+</blockquote>
+<hr>
+<h3 id="AC-代码-1"><a href="#AC-代码-1" class="headerlink" title="AC 代码"></a>AC 代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">orchestraLayout</span><span class="params">(<span class="keyword">int</span> num, <span class="keyword">int</span> xPos, <span class="keyword">int</span> yPos)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> loc = <span class="number">0</span>, edge = <span class="number">0</span>, Rnum = num - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> Quadrant;</span><br><span class="line">        <span class="keyword">if</span>(yPos &lt; -xPos + Rnum &amp;&amp; yPos &gt;= xPos) Quadrant = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(yPos &gt;= -xPos + Rnum &amp;&amp; yPos &gt; xPos) Quadrant = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(yPos &gt; -xPos + Rnum &amp;&amp; yPos &lt;= xPos) Quadrant = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span>(yPos &lt;= -xPos + Rnum &amp;&amp; yPos &lt; xPos) Quadrant = <span class="number">3</span>;</span><br><span class="line">        <span class="keyword">switch</span> (Quadrant) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                edge = (-xPos + Rnum) - xPos;</span><br><span class="line">                loc += (Rnum + <span class="number">1</span>) * (Rnum + <span class="number">1</span>) - (edge + <span class="number">1</span>) * (edge + <span class="number">1</span>);</span><br><span class="line">                loc += yPos - xPos + <span class="number">1</span> + Quadrant * edge;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:  </span><br><span class="line">                edge = yPos - (-yPos + Rnum);</span><br><span class="line">                loc += (Rnum + <span class="number">1</span>) * (Rnum + <span class="number">1</span>) - (edge + <span class="number">1</span>) * (edge + <span class="number">1</span>);</span><br><span class="line">                loc += xPos -(-yPos + Rnum) + <span class="number">1</span> + Quadrant * edge;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                edge = xPos - (-xPos + Rnum);</span><br><span class="line">                loc += (Rnum + <span class="number">1</span>) * (Rnum + <span class="number">1</span>) - (edge + <span class="number">1</span>) * (edge + <span class="number">1</span>);</span><br><span class="line">                loc += xPos - yPos + <span class="number">1</span> + Quadrant * edge;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>: </span><br><span class="line">                edge = (-yPos + Rnum) - yPos;</span><br><span class="line">                loc += (Rnum + <span class="number">1</span>) * (Rnum + <span class="number">1</span>) - (edge + <span class="number">1</span>) * (edge + <span class="number">1</span>);</span><br><span class="line">                loc += (-yPos + Rnum) - xPos + <span class="number">1</span> + Quadrant * edge;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">int</span>(loc % <span class="number">9</span> ? loc % <span class="number">9</span> : <span class="number">9</span>); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="算法分析-1"><a href="#算法分析-1" class="headerlink" title="算法分析"></a>算法分析</h3><blockquote>
+<ul>
+<li>本题通过归纳法，得出 “站位” 的计算公式，直接算得位置，故整体算法复杂度为 $O(1)$ 。</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="魔塔游戏"><a href="#魔塔游戏" class="headerlink" title="魔塔游戏"></a>魔塔游戏</h2><p>小扣当前位于魔塔游戏第一层，共有 <code>N</code> 个房间，编号为 <code>0 ~ N-1</code> 。每个房间的补血道具/怪物对于血量影响记于数组 <code>nums</code>，其中正数表示道具补血数值，即血量增加对应数值；负数表示怪物造成伤害值，即血量减少对应数值；<code>0</code> 表示房间对血量无影响。</p>
+<p><strong>小扣初始血量为 <code>1</code>，且无上限。</strong> 假定小扣原计划按房间编号升序访问所有房间补血/打怪， <strong>为保证血量始终为正值</strong> ，小扣需对房间访问顺序进行调整， <strong>每次仅能将一个怪物房间（负数的房间）调整至访问顺序末尾</strong> 。请返回小扣最少需要调整几次，才能顺利访问所有房间。若调整顺序也无法访问完全部房间，请返回 <code>-1</code>。</p>
+<p><strong>示例 1</strong>：</p>
+<blockquote>
+<p>输入： <code>nums = [100,100,100,-250,-60,-140,-50,-50,100,150]</code></p>
+<p>输出： <code>1</code></p>
+<p>解释：初始血量为 <code>1</code>。至少需要将 <code>nums[3]</code> 调整至访问顺序末尾以满足要求。</p>
+</blockquote>
+<p><strong>示例 2</strong>：</p>
+<blockquote>
+<p>输入： <code>nums = [-200,-300,400,0]</code></p>
+<p>输出： <code>-1</code></p>
+<p>解释：调整访问顺序也无法完成全部房间的访问。</p>
+</blockquote>
+<blockquote>
+<p><strong>提示</strong>：</p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 10^5</code></li>
+<li><code>-10^5 &lt;= nums[i] &lt;= 10^5</code></li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="题目分析-2"><a href="#题目分析-2" class="headerlink" title="题目分析"></a>题目分析</h3><p><strong>本题标签</strong> ： <strong>最小堆</strong> ； <strong>贪心</strong></p>
+<blockquote>
+<ul>
+<li>题目意思比较明显，通过调整房间保证血量的同时，走完全部房间。</li>
+<li>主要问题在于如何调整房间，两个问题：<blockquote>
+<ol>
+<li>何时调整房间；</li>
+<li>如何调整房间使得调换次数最少。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>问题1的答案比较明显，当经过该房间后，<code>hp &lt; 1</code> , 说明此时需要调整房间，来让血量保持为正数。问题2根据 <strong>贪心策略</strong> 分析，应将 <strong>此前访问过的扣血量最大的</strong> 房间调整到最后，这样可以使得需要调整的次数最少；而为了实现找到此前访问过的扣血量最大的房间，我们需要使用 <strong>最小堆</strong> ，每遇到一个 <strong>扣血的房间</strong> 就将其插入最小堆，当 <code>hp &lt; 1</code> 时，将 <strong>堆顶元素</strong> 取出，并且回复相应的 <code>hp</code> ，并将 此房间放到最后。</li>
+<li>持续执行上述步骤，直至访问全部房间。需要注意的是，在实现 <strong>将房间放到最后的操作</strong> 中，我们并不需要真正将其放到序列最后，而是通过 <code>rearM</code> 变量将其放到最后的房间的 <strong>扣血量</strong> 统计，当处理完原始序列最后一个元素时，将 <code>hp</code> 减去 <code>rearM</code> 即可。  </li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="AC-代码-2"><a href="#AC-代码-2" class="headerlink" title="AC 代码"></a>AC 代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">magicTower</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">priority_queue</span>&lt;<span class="keyword">int</span>, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;, greater&lt;<span class="keyword">int</span>&gt; &gt; mHeap;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> hp = <span class="number">1</span>, rearM = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> swapN = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i] &lt; <span class="number">0</span>) mHeap.push(nums[i]);</span><br><span class="line">            hp += nums[i];</span><br><span class="line">            <span class="keyword">while</span> (hp &lt; <span class="number">1</span> &amp;&amp; !mHeap.empty()) &#123;</span><br><span class="line">                hp -= mHeap.top();</span><br><span class="line">                rearM += mHeap.top();</span><br><span class="line">                swapN++;</span><br><span class="line">                mHeap.pop();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(hp + rearM &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">return</span> swapN;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="算法分析-2"><a href="#算法分析-2" class="headerlink" title="算法分析"></a>算法分析</h3><blockquote>
+<p>上述代码主要涉及两个循环: 第一层循环主要是实现了对序列的遍历，并将值小于 <code>0</code> 的元素插入最小堆， 时间复杂度为 $O(NlogN)$ ，第二层循环通过不断将最小堆中元素取出，并回复血量 <code>hp -= mHeap.top()</code> ，使得血量保持为正数，此步复杂度为 $O(logN)$ ，故算法总体时间复杂度为 $(NlogN^2)$ 。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:verfolgen17@gmail.com">Class</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://classitblog.com/Contest/LCCUP-21Spring-P/">http://classitblog.com/Contest/LCCUP-21Spring-P/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Sort/">Sort</a><a class="post-meta__tags" href="/tags/Two-Pointers/">Two Pointers</a><a class="post-meta__tags" href="/tags/Math/">Math</a><a class="post-meta__tags" href="/tags/Heap/">Heap</a><a class="post-meta__tags" href="/tags/Greedy/">Greedy</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/LCCUP-21Spring-P.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/Algorithms/ZJU_DataStructure/Sort/SortExpand/"><img class="next-cover" src="/images/cover/SortExpand.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Sort Expand</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/Algorithms/ZJU_DataStructure/Sort/SortExpand/" title="Sort Expand"><img class="cover" src="/images/cover/SortExpand.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-29</div><div class="title">Sort Expand</div></div></a></div><div><a href="/Algorithms/ZJU_DataStructure/Trees/BinarySearchTree/" title="Binary Search Tree"><img class="cover" src="/images/cover/BinarySearchTree.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-31</div><div class="title">Binary Search Tree</div></div></a></div><div><a href="/Algorithms/ZJU_DataStructure/Sort/SelectSort/" title="Select Sort"><img class="cover" src="/images/cover/SelectSort.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-28</div><div class="title">Select Sort</div></div></a></div><div><a href="/Algorithms/ZJU_DataStructure/Trees/Heap/" title="Heap"><img class="cover" src="/images/cover/Heap.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-31</div><div class="title">Heap</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Class</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">31</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Class-17"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Class-17" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:verfolgen17@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">New articles about Sort are upload!</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%87%E8%B4%AD%E6%96%B9%E6%A1%88"><span class="toc-number">1.</span> <span class="toc-text">采购方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%88%86%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text">题目分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.</span> <span class="toc-text">AC 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-number">1.3.</span> <span class="toc-text">算法分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%90%E5%9B%A2%E5%8D%A0%E4%BD%8D"><span class="toc-number">2.</span> <span class="toc-text">乐团占位</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%88%86%E6%9E%90-1"><span class="toc-number">2.1.</span> <span class="toc-text">题目分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.2.</span> <span class="toc-text">算法实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-%E4%BB%A3%E7%A0%81-1"><span class="toc-number">2.3.</span> <span class="toc-text">AC 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-1"><span class="toc-number">2.4.</span> <span class="toc-text">算法分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AD%94%E5%A1%94%E6%B8%B8%E6%88%8F"><span class="toc-number">3.</span> <span class="toc-text">魔塔游戏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%88%86%E6%9E%90-2"><span class="toc-number">3.1.</span> <span class="toc-text">题目分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-%E4%BB%A3%E7%A0%81-2"><span class="toc-number">3.2.</span> <span class="toc-text">AC 代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-2"><span class="toc-number">3.3.</span> <span class="toc-text">算法分析</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Contest/LCCUP-21Spring-P/" title="LCCUP'21 春季赛 个人赛题解"><img src="/images/cover/LCCUP-21Spring-P.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LCCUP'21 春季赛 个人赛题解"/></a><div class="content"><a class="title" href="/Contest/LCCUP-21Spring-P/" title="LCCUP'21 春季赛 个人赛题解">LCCUP'21 春季赛 个人赛题解</a><time datetime="2021-04-06T01:00:00.000Z" title="Created 2021-04-06 09:00:00">2021-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/SortExpand/" title="Sort Expand"><img src="/images/cover/SortExpand.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sort Expand"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/SortExpand/" title="Sort Expand">Sort Expand</a><time datetime="2021-03-29T10:00:00.000Z" title="Created 2021-03-29 18:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/RadixSort/" title="Radix Sort"><img src="/images/cover/RadixSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Radix Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/RadixSort/" title="Radix Sort">Radix Sort</a><time datetime="2021-03-29T06:00:00.000Z" title="Created 2021-03-29 14:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/MergeSort/" title="Merge Sort"><img src="/images/cover/MergeSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Merge Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/MergeSort/" title="Merge Sort">Merge Sort</a><time datetime="2021-03-29T05:00:00.000Z" title="Created 2021-03-29 13:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/SwapSort/" title="Swap Sort"><img src="/images/cover/SwapSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Swap Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/SwapSort/" title="Swap Sort">Swap Sort</a><time datetime="2021-03-28T09:00:00.000Z" title="Created 2021-03-28 17:00:00">2021-03-28</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Class</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>
