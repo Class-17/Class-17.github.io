@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Minimum Spanning Tree | Class's Blog</title><meta name="keywords" content="Graphs,MST,Prim,Kruskal"><meta name="author" content="Class,verfolgen17@gmail.com"><meta name="copyright" content="Class"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="图的最小生成树算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minimum Spanning Tree">
+<meta property="og:url" content="http://classitblog.com/Algorithms/ZJU_DataStructure/Graphs/MinimumSpanningTree/index.html">
+<meta property="og:site_name" content="Class&#39;s Blog">
+<meta property="og:description" content="图的最小生成树算法">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://classitblog.com/images/cover/MinimumSpanningTree.png">
+<meta property="article:published_time" content="2021-03-02T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-06T00:33:38.565Z">
+<meta property="article:author" content="Class">
+<meta property="article:tag" content="Graphs">
+<meta property="article:tag" content="MST">
+<meta property="article:tag" content="Prim">
+<meta property="article:tag" content="Kruskal">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://classitblog.com/images/cover/MinimumSpanningTree.png"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://classitblog.com/Algorithms/ZJU_DataStructure/Graphs/MinimumSpanningTree/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-06 08:33:38'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">31</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/Artitalk/"><i class="fa-fw fas fa-comment"></i><span> Artitalk</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/cover/MinimumSpanningTree.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Class's Blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/Artitalk/"><i class="fa-fw fas fa-comment"></i><span> Artitalk</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Minimum Spanning Tree</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-03-02T00:00:00.000Z" title="Created 2021-03-02 08:00:00">2021-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-04-06T00:33:38.565Z" title="Updated 2021-04-06 08:33:38">2021-04-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Algorithms/">Algorithms</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Algorithms/ZJU-DataStructure/">ZJU_DataStructure</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Algorithms/ZJU-DataStructure/Graphs/">Graphs</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>8min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="生成树与最小生成树定义"><a href="#生成树与最小生成树定义" class="headerlink" title="生成树与最小生成树定义"></a>生成树与最小生成树定义</h2><h3 id="生成树"><a href="#生成树" class="headerlink" title="生成树"></a>生成树</h3><blockquote>
+<ul>
+<li><strong>生成树（Spanning Tree）</strong> ：所谓连通图 <code>G</code> 的生成树，是 <code>G</code> 的包含其全部 <code>n</code> 个顶点的一个极小连通子图。它必定包含且仅包含 <code>G</code> 的 <code>n - 1</code> 条边。</li>
+<li>有 <code>n</code> 个顶点的图，如果边的数量小于 <code>n - 1</code> ，那么它必定是不连通的，所以 <code>n - 1</code> 是连通图所需的“极小”的边的数量。而多余 <code>n - 1</code> 条边的图必将产生回路，也就不是树了，因为树中是没有回路的。</li>
+<li>由此可见，图 <code>G</code> 是一颗树，当且仅当 <code>G</code> 满足下面 4 个条件之一：<blockquote>
+<ul>
+<li><code>G</code> 有 <code>n - 1</code> 条边，且没有环；</li>
+<li><code>G</code> 有 <code>n - 1</code> 条边，且是连通的；</li>
+<li><code>G</code> 中的每一对顶点有且只有一条路径相连；</li>
+<li><code>G</code> 是连通的，但删除任何一条边就会使它不连通；</li>
+</ul>
+</blockquote>
+</li>
+<li>对于有向图来说，生成树应该是一颗有向树。如果一个有向图恰有一个顶点的入度 0 ，其余顶点入度为 1，则它就是一颗 <strong>有向树(Directed Tree)</strong> 。入度为 0 的顶点就是树的根，其余顶点入度为 1 表示非根节点只有一个父节点。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><strong>生成森林（Spanning Forest）</strong> ： 在非连通图中，由于每个连通分量都是一个极小连通子图，即一颗生成树可以对应一个连通分量。对应各个连通分量的各棵生成树就组成了一个图的生成森林。对无向图而言，一个图的生成森林中树的数量就等于他的连通分量树；对有向图来说，一个强连通分量可以得到对应的生成树（不唯一）；但是，非强连通图也可能只需要用一个生成树（有向树）与之对应。</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="最小生成树"><a href="#最小生成树" class="headerlink" title="最小生成树"></a>最小生成树</h3><blockquote>
+<ul>
+<li>对于有 <code>n</code> 个顶点的无向连通图，无论其生成树的形状如何，只要是树，就都有且仅有 <code>n - 1</code> 条边。</li>
+<li>如果无向连通图是一个<strong>网图</strong>，那么，他的所有生成树中必有一颗边的权值总和最小的生成树，我们称这颗生成树为 <strong>最小生成树（Minimum Spanning Tree, MST）</strong> 。 当然，对任意一个带权的连通网图来说，<strong>最小生成树不一定是唯一的</strong>。</li>
+<li>假定一网图边上权值非负，连通图上如果存在回路，那么删去回路上的任意一条边仍然是连通图，但权值和可减少。因此，<strong>权值总和最小的连通图一定是没有环的</strong> 。</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="Prim算法"><a href="#Prim算法" class="headerlink" title="Prim算法"></a>Prim算法</h2><blockquote>
+<ul>
+<li><code>Prim</code>算法构建最小生成树的过程为<strong>当前树的生长过程</strong>。 <code>n</code> 个顶点的网图通过 <code>n - 1</code> 步的生长即可构建最小生成树。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>假设 $G = (V, E)$ 为一网图，其中 $V$ 为网图所有顶点的集合，$E$ 为网图中所有带权边的集合。设置两个新的集合 $V_T$ 和 $E_T$ ，其中集合 $V_T$ 用于存放 $G$ 的最小生成树中的顶点，集合 $E_T$ 存放 $G$ 的最小生成树中的边（即当前树 $T = \{E_T; V_T\}$）。令集合 $V_T$ 的初值为 $V_T = \{ v_0 \}$ （假设构造最小生成树时，从顶点 $v_0$ 出发），集合 $E_T$ 的初值为 $\varnothing$ 。<code>Prim</code> 算法的思想时，从所有 $u \in V_T, v \in V - V_T$ 的边（算法中只需考虑虚线边）中，选取具有最小权值的边 $(u, v)$ ，将顶点 $v$ 加入到集合 $V_T$ 中，将边 $(u, v)$ 加入到集合 $E_T$ 中，如此不断重复，直到 $V_T = V$ 时，最小生成树构造完毕，这时集合 $E_T$ 包含了最小生成树的所有边。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><code>Prim</code> 算法可用下述过程描述，其中用 $W_{uv}$ 表示顶点 $u$ 与顶点 $v$ 边上的权值。<blockquote>
+<p>$V_T = \{v_0\}, E_T = \{\varnothing\};$<br>$while (V_T != V) \{$<br>$\qquad (u, v) = min\{W_{uv} \vert u \in V_T, v \in V - V_T\};$<br> $\qquad E_T = E_T + \{(u, v)\};$<br> $\qquad V_T = V_T + \{v\};$<br>$\}$</p>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<h3 id="Prim算法实现"><a href="#Prim算法实现" class="headerlink" title="Prim算法实现"></a>Prim算法实现</h3><blockquote>
+<ul>
+<li>将顶点用 $0$ ~ $\vert V \vert - 1$ 编号，顶点之间没有边用 $\infty$ 表示，并设置两个辅助一维数组 <code>Parent</code> 和 <code>Dist</code> 。其中数组 <code>Parent</code> 用来保存当前树的顶点生长过程中，每个顶点的父顶点， <code>Parent[0] = -1</code> 表示 $v_0$ 为根。 <code>Dist[j]</code> 用来保存顶点 $v_j$ 到 $V_T$ 顶点的边的最小值，即存储各顶点与当前树的“距离”————如果 $v_j$ 属于当前树，则 <code>Dist[j] = 0</code> ；如果 $v_j$ 不属于当前树且不是当前树所有顶点的邻接点，则用 <code>Dist[j] =</code> $\infty$ 表示。</li>
+<li>在程序中使用顶点编号代替顶点，假设初始状态时， $V_T = \{0\}$ （$v_0$ 为出发的顶点），这时有 <code>Dist[0] = 0</code> 表示 $v_0$ 已加入集合 $V_T$ 中； 数组 <code>Dist</code> 的其他分量的值是顶点 $v_0$ 到其余各顶点所构成的直接边的权值，可直接从图的存储结构中复制。</li>
+<li>从 <code>Dist</code> 中不断选取权值最小的边 <code>(w, v)</code> （ $w \in V_T, v \in V - V_T$ ，数据存储在 <code>Dist[v]</code> 中），每选取一条边，就将 <code>Dist[v]</code> 置为 0 （当前树生长至 <code>v</code>）。由于顶点 <code>v</code> 从集合 $V - V_T$ 进入集合 $V_T$ 后，这两个集合的内容发生了变化，就需对每个 $w \in V - V_T$ 更新数组 <code>Parent</code> 和 <code>Dist</code> 的内容：若收录 <code>v</code> 使得 <code>Dist[w]</code> 变小，则更新 <code>Dist[w]</code> 的权值为 <code>(v, w)</code> 的权值，并将 <code>v</code> 设置为 <code>w</code> 的父顶点。 </li>
+</ul>
+</blockquote>
+<p><strong>Prim算法C代码实现</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Vertex <span class="title">FindMinDist</span><span class="params">(MGraph Graph, WeightType Dist[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Vertex MinV;</span><br><span class="line">    WeightType MinDist = INF;</span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++)</span><br><span class="line">        <span class="keyword">if</span>(Dist[V] != <span class="number">0</span> &amp;&amp; Dist[V] &lt; MinDist) &#123;</span><br><span class="line">            MinDist = Dist[V];</span><br><span class="line">            MinV = V;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">if</span>(MinDist == INF) <span class="keyword">return</span> ERROR;</span><br><span class="line">    <span class="keyword">return</span> MinV;    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">LGraph <span class="title">Prim</span><span class="params">(MGraph Graph)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    WeightType Dist[MaxVertexNum];</span><br><span class="line">    Vertex Parent[MaxVertexNum];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> VCount = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++) &#123;</span><br><span class="line">        Dist[V] = Graph-&gt;G[<span class="number">0</span>][V];</span><br><span class="line">        Paretne[V] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    Dist[<span class="number">0</span>] = <span class="number">0</span>; </span><br><span class="line">    Parent[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">    VCount++;</span><br><span class="line"></span><br><span class="line">    LGraph MST = CreateLGraph(Graph-&gt;Nv);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">        Vertex V = FindMinDist(Graph, Dist);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(V == ERROR) <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        Edge E = (Edge)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ENode));</span><br><span class="line">        E-&gt;V = Parent[V];</span><br><span class="line">        E-&gt;W = V;</span><br><span class="line">        E-&gt;Weight = Dist[V];</span><br><span class="line">        InsertEdgeLGraph(MST, E);</span><br><span class="line">        Dist[V] = <span class="number">0</span>; VCount++;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(Vertex W = <span class="number">0</span>; W &lt; Graph-&gt;Nv; W++)</span><br><span class="line">            <span class="keyword">if</span>(Dist[W] != <span class="number">0</span> &amp;&amp; Graph-&gt;G[V][W] &lt; INF)</span><br><span class="line">                <span class="keyword">if</span>(Graph-&gt;G[V][W] &lt; Dist[W]) &#123;</span><br><span class="line">                    Dist[W] = Graph-&gt;G[V][W];</span><br><span class="line">                    Parent[W] = V;</span><br><span class="line">                &#125;          </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(VCount &lt; Graph-&gt;Nv) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> MST;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>在上述以邻接矩阵为存储结构的 <code>Prim</code> 算法中，第一个初始化辅助数组的 <code>for</code> 循环的执行次数为 $\vert V \vert - 1$ ；<code>CreateLGraph</code> 用 $O(\vert V \vert)$ 建立其一个空的邻接表表示的 <code>MST</code> ；接下来的 <code>while</code> 循环最执行 $\vert V \vert - 1$ 次，但是其中又要执行 <code>FindMinDist</code> 和一个 <code>for</code> 循环，执行次数为 $2(\vert V \vert - 1)^2$ ，故， <code>Prim</code> 算法的时间复杂度为 $O(\vert V \vert^2)$。</li>
+<li>对于稠密图此方法较合适，对于稀疏图此方法则未必理想。改进方法为：改邻接表为图的存储结构，<code>FindMinDist</code> 改用最小堆，可将算法时间复杂度改进到 $O(\vert E \vert log\vert V \vert)$ 。</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="Kruskal算法"><a href="#Kruskal算法" class="headerlink" title="Kruskal算法"></a>Kruskal算法</h2><blockquote>
+<ul>
+<li>Kruskal算法是一种<strong>按照网图中边的权值递增的顺序构造最小生成树</strong>的方法。</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>设无向连通网图为 $G = (V, E)$ ,令 $G$ 的最小生成树为 $T$ ，其初态（不是树，可看成生成森林）为 $T = \{ \varnothing ; V\}$ ，即开始时， $T$ 由图 $G$ 中的全部 $\vert V \vert$ 个顶点构成，顶点之间没有一条边，这样 $T$ 中各顶点各自构成仅有一个顶点的连通分量。然后，按边的权值由小到大的顺序，按照贪心原则考察 $G$ 的边集 $E$ 中的各条边。</li>
+</ul>
+</blockquote>
+<h3 id="Kruskal算法实现"><a href="#Kruskal算法实现" class="headerlink" title="Kruskal算法实现"></a>Kruskal算法实现</h3><blockquote>
+<ol>
+<li><strong>选择一条权值最小的边</strong> 。因为权值是不变的，所以所有边可以事先按照权值升序排列，这项工作如果采用更高效率的方法，时间复杂度为 $O(\vert E \vert log \vert E \vert)$ 。如果不是先把所有的边排序，也可采用 <strong>最小堆</strong> 的数据结构。建立初始堆的时间复杂性为 $O(\vert E \vert)$ ，删除堆顶元素后重组一个堆的时间为 $O(log \vert E \vert)$ ，所以总的时间复杂度依然为 $O(\vert E \vert)$ 。</li>
+<li><strong>判定一条边的两端是否属于同一棵树</strong> 。这项工作可以采用 <strong>并查集</strong> 的查找运算 <code>Find</code> 来实现。</li>
+<li><strong>合并两棵树</strong> 。 这项工作可以使用 <strong>并查集</strong> 的合并运算 <code>Union</code> 实现。 </li>
+</ol>
+</blockquote>
+<p><strong>Kruskal算法C代码实现</strong> ：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">LGraph <span class="title">Kruskal</span><span class="params">(LGraph Graph)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LGraph MST = CreateLGraph(Graph-&gt;Nv);</span><br><span class="line"></span><br><span class="line">    MinHeap MinH = CreateHeap(Graph-&gt;Ne);</span><br><span class="line">    <span class="keyword">for</span>(Vertex V = <span class="number">0</span>; V &lt; Graph-&gt;Nv; V++) &#123;</span><br><span class="line">        PtrToAdjNode Rear = Graph-&gt;G[V].FirstEdge;</span><br><span class="line">        <span class="keyword">while</span> (Rear) &#123;</span><br><span class="line">            Edge E = (Edge)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ENode));</span><br><span class="line">            E-&gt;V = V;</span><br><span class="line">            E-&gt;W = Rear-&gt;AdjV;</span><br><span class="line">            E-&gt;Weight = Rear-&gt;Weight;</span><br><span class="line">            Insert(MinH, E);</span><br><span class="line">            Rear = Rear-&gt;Next;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    SetType S = CreateSet(Graph-&gt;Nv);</span><br><span class="line">    <span class="keyword">int</span> ECount = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (!IsEmpty(MinH)) &#123;</span><br><span class="line">        Edge E = Delete(MinH);</span><br><span class="line">        <span class="keyword">if</span>(Find(S, E-&gt;V) != Find(S, E-&gt;W)) &#123;</span><br><span class="line">            InsertEdgeLGraph(MST, E);</span><br><span class="line">            ECount++;</span><br><span class="line">            Union(S, Find(S, E-&gt;V), Find(S, E-&gt;W));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(ECount &lt; Graph-&gt;Nv - <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> MST;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>在以上 <code>Kruskal</code> 算法中，时间复杂性主要体现在 <code>while</code> 循环中，其循环次数最多为 $\vert E \vert$ 次；其内部调用的最小堆操作的复杂度为每次 $O(log\vert E \vert)$ ；回路判断及边的收集由并查集中带路径压缩的 <code>Find</code> 函数和按秩合并的 <code>Union</code> 函数完成，最快需要 $O(log \vert V \vert)$ ；所以总体时间复杂度为 $O(\vert E \vert log\vert V \vert)$ 。</li>
+<li>可见当图比较稀疏时， <code>Kruskal</code> 算法的效率要比 <code>Prim</code> 算法高。</li>
+</ul>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:verfolgen17@gmail.com">Class</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://classitblog.com/Algorithms/ZJU_DataStructure/Graphs/MinimumSpanningTree/">http://classitblog.com/Algorithms/ZJU_DataStructure/Graphs/MinimumSpanningTree/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Graphs/">Graphs</a><a class="post-meta__tags" href="/tags/MST/">MST</a><a class="post-meta__tags" href="/tags/Prim/">Prim</a><a class="post-meta__tags" href="/tags/Kruskal/">Kruskal</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/MinimumSpanningTree.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/Algorithms/ZJU_DataStructure/Graphs/TopSort/"><img class="prev-cover" src="/images/cover/TopSort.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Top Sort</div></div></a></div><div class="next-post pull-right"><a href="/Algorithms/ZJU_DataStructure/Graphs/ShortestPath/"><img class="next-cover" src="/images/cover/ShortestPath.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Shortest Path</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/Algorithms/ZJU_DataStructure/Graphs/BasicGraph/" title="Basic Graph"><img class="cover" src="/images/cover/BasicGraph.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-25</div><div class="title">Basic Graph</div></div></a></div><div><a href="/Algorithms/ZJU_DataStructure/Graphs/ShortestPath/" title="Shortest Path"><img class="cover" src="/images/cover/ShortestPath.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-01</div><div class="title">Shortest Path</div></div></a></div><div><a href="/Algorithms/ZJU_DataStructure/Graphs/TopSort/" title="Top Sort"><img class="cover" src="/images/cover/TopSort.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-03</div><div class="title">Top Sort</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Class</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">31</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Class-17"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Class-17" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:verfolgen17@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">New articles about Sort are upload!</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%A0%91%E4%B8%8E%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">生成树与最小生成树定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%A0%91"><span class="toc-number">1.1.</span> <span class="toc-text">生成树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91"><span class="toc-number">1.2.</span> <span class="toc-text">最小生成树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prim%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">Prim算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Prim%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.1.</span> <span class="toc-text">Prim算法实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kruskal%E7%AE%97%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">Kruskal算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Kruskal%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.1.</span> <span class="toc-text">Kruskal算法实现</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Contest/LCCUP'21-Spring-P/" title="LCCUP'21 春季赛 个人赛题解"><img src="/images/cover/LCCUP'21-Spring-P.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LCCUP'21 春季赛 个人赛题解"/></a><div class="content"><a class="title" href="/Contest/LCCUP'21-Spring-P/" title="LCCUP'21 春季赛 个人赛题解">LCCUP'21 春季赛 个人赛题解</a><time datetime="2021-04-06T01:00:00.000Z" title="Created 2021-04-06 09:00:00">2021-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/SortExpand/" title="Sort Expand"><img src="/images/cover/SortExpand.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sort Expand"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/SortExpand/" title="Sort Expand">Sort Expand</a><time datetime="2021-03-29T10:00:00.000Z" title="Created 2021-03-29 18:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/RadixSort/" title="Radix Sort"><img src="/images/cover/RadixSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Radix Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/RadixSort/" title="Radix Sort">Radix Sort</a><time datetime="2021-03-29T06:00:00.000Z" title="Created 2021-03-29 14:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/MergeSort/" title="Merge Sort"><img src="/images/cover/MergeSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Merge Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/MergeSort/" title="Merge Sort">Merge Sort</a><time datetime="2021-03-29T05:00:00.000Z" title="Created 2021-03-29 13:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/SwapSort/" title="Swap Sort"><img src="/images/cover/SwapSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Swap Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/SwapSort/" title="Swap Sort">Swap Sort</a><time datetime="2021-03-28T09:00:00.000Z" title="Created 2021-03-28 17:00:00">2021-03-28</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Class</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>

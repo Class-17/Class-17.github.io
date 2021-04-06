@@ -1,0 +1,293 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Basic Stack | Class's Blog</title><meta name="keywords" content="Linear Structure,Stack"><meta name="author" content="Class,verfolgen17@gmail.com"><meta name="copyright" content="Class"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="堆栈的基础知识及其简单应用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Basic Stack">
+<meta property="og:url" content="http://classitblog.com/Algorithms/ZJU_DataStructure/Linear_Structure/BasicStack/index.html">
+<meta property="og:site_name" content="Class&#39;s Blog">
+<meta property="og:description" content="堆栈的基础知识及其简单应用">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://classitblog.com/images/cover/BasicStack.png">
+<meta property="article:published_time" content="2020-11-26T15:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-06T00:33:38.565Z">
+<meta property="article:author" content="Class">
+<meta property="article:tag" content="Linear Structure">
+<meta property="article:tag" content="Stack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://classitblog.com/images/cover/BasicStack.png"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="http://classitblog.com/Algorithms/ZJU_DataStructure/Linear_Structure/BasicStack/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-06 08:33:38'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">31</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/Artitalk/"><i class="fa-fw fas fa-comment"></i><span> Artitalk</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/cover/BasicStack.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Class's Blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/Artitalk/"><i class="fa-fw fas fa-comment"></i><span> Artitalk</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Basic Stack</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2020-11-26T15:00:00.000Z" title="Created 2020-11-26 23:00:00">2020-11-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-04-06T00:33:38.565Z" title="Updated 2021-04-06 08:33:38">2021-04-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Algorithms/">Algorithms</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Algorithms/ZJU-DataStructure/">ZJU_DataStructure</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Algorithms/ZJU-DataStructure/Linear-Structure/">Linear_Structure</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">1.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>7min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="堆栈的定义"><a href="#堆栈的定义" class="headerlink" title="堆栈的定义"></a>堆栈的定义</h2><blockquote>
+<p>堆栈（Stack）可以认为是 <strong>具有一定约束的线性表</strong>，插入和删除的操作都作用在一个称为栈顶（Top）的端点位置。<br>在堆栈中，通常把数据插入称为 <strong>压入栈</strong>（Push），而数据的删除可看作从堆栈中取出数据，叫做 <strong>弹出栈</strong>（Pop）。<br>由于这种特性，最后入栈的数据将被最先弹出，所以堆栈也被称为 <strong>后入先出</strong> (<strong>Last In First Out, LIFO</strong>) 表。</p>
+</blockquote>
+<h2 id="堆栈的抽象数据类型"><a href="#堆栈的抽象数据类型" class="headerlink" title="堆栈的抽象数据类型"></a>堆栈的抽象数据类型</h2><blockquote>
+<ul>
+<li><strong>类型名称</strong>：堆栈（Stack）</li>
+<li><strong>数据对象集</strong>：一个有零个或多个元素的有穷线性表</li>
+<li><strong>操作集</strong>：对于一个具体的长度为正整数 $MaxSize$ 的堆栈 $S \in Stack$，记堆栈中的任一元素 $X \in ElementType$，堆栈的基本操作有：<blockquote>
+<ol>
+<li><code>Stack CreateStack(int MaxSize)</code>: 生成空堆栈，其最大长度为 <code>MaxSize</code>；  </li>
+<li><code>bool IsFull(Stack S)</code>: 判断堆栈 <code>S</code> 是否已满。若是返回 <code>true</code>，否则返回 <code>false</code>；  </li>
+<li><code>bool IsEmpty(Stack S)</code>: 判断堆栈 <code>S</code> 是否为空，若是返回 <code>true</code>， 否则返回 <code>false</code>；  </li>
+<li><code>bool Push(Stack S, ElementType X)</code>: 将元素 <code>X</code> 压入堆栈 <code>S</code> 中。若堆栈已满，返回 <code>false</code>，否则将数据元素 <code>X</code> 插入到堆栈 <code>S</code> 栈顶处并返回 <code>true</code>；  </li>
+<li><code>ElementType Pop(Stack S)</code>: 删除并返回栈顶元素。若堆栈为空，返回错误信息，否则将栈顶元素从堆栈中删除并返回。</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</blockquote>
+<hr>
+<h2 id="堆栈的实现"><a href="#堆栈的实现" class="headerlink" title="堆栈的实现"></a>堆栈的实现</h2><blockquote>
+<p>由于堆栈是线性表，因而堆栈的存储结构可采用 <strong>顺序</strong> 和 <strong>链式</strong> 两种形式。顺序存储的堆栈称为 <strong>顺序栈</strong>，链式存储的堆栈称为 <strong>链栈</strong>。</p>
+</blockquote>
+<h3 id="顺序存储实现"><a href="#顺序存储实现" class="headerlink" title="顺序存储实现"></a>顺序存储实现</h3><blockquote>
+<p>栈的顺序存储结构通常由一个 <strong>一维数组</strong> 和一个 <strong>记录栈顶元素位置的变量</strong> 组成，另外，可以使用一个变量来存储堆栈的最大容量 <code>MaxSize</code>， 这样方便判断什么时候堆栈是满的。<br>使用一维数组 <code>Data[MaxSize]</code>（下标 0 ~ MaxSize - 1）存储一个栈的元素。<br>将栈底放在数组下标小的一端，栈顶位置使用整型变量 <code>Top</code> 记录当前栈顶元素的下标值。当 <code>Top = -1</code>时，表示空栈；当 <code>Top = MaxSize - 1</code> 时，表示满栈。</p>
+</blockquote>
+<ul>
+<li><strong>顺序栈 C 实现代码</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> Position;</span><br><span class="line"><span class="keyword">typedef</span> SELFDEF ElementType;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* ADT - Stack: DataObjects and Operations */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SNode</span> * <span class="title">PtrToSNode</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SNode</span> &#123;</span></span><br><span class="line">    ElementType * Data;  <span class="comment">// 存储元素的数组</span></span><br><span class="line">    Position Top;       <span class="comment">// 栈顶指针</span></span><br><span class="line">    <span class="keyword">int</span> MaxSize;        <span class="comment">// 堆栈最大容量</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> PtrToSNode Stack;</span><br><span class="line"></span><br><span class="line"><span class="function">Stack <span class="title">CreateStack</span><span class="params">(<span class="keyword">int</span> MaxSize)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsEmpty</span><span class="params">(Stack S)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsFull</span><span class="params">(Stack S)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(Stack S, ElementType X)</span></span>;</span><br><span class="line"><span class="function">ElementType <span class="title">Pop</span><span class="params">(Stack S)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Stack Operations Implementation Codes */</span></span><br><span class="line"></span><br><span class="line"><span class="function">Stack <span class="title">CreateStack</span><span class="params">(<span class="keyword">int</span> MaxSize)</span>   </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Stack S = (Stack)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct SNode));</span><br><span class="line">    S-&gt;Data = (ElementType *)<span class="built_in">malloc</span>(MaxSize * <span class="keyword">sizeof</span>(ElementType));</span><br><span class="line">    S-&gt;MaxSize = MaxSize;</span><br><span class="line">    S-&gt;Top = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">return</span> S;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsEmpty</span><span class="params">(Stack S)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (S-&gt;Top == <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsFull</span><span class="params">(Stack S)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (S-&gt;Top == S-&gt;MaxSize - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(Stack S, ElementType X)</span> </span>&#123;</span><br><span class="line">    S-&gt;Data[++(S-&gt;Top)] = X;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ElementType <span class="title">Pop</span><span class="params">(Stack S)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (S-&gt;Data[(S-&gt;Top)--]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="链式存储实现"><a href="#链式存储实现" class="headerlink" title="链式存储实现"></a>链式存储实现</h3><blockquote>
+<p>栈的链式存储结构（链栈）与单链表类似，但其操作受限制， 插入和删除操作只能在链栈的栈顶进行。为了简便算法，链栈可以带一空的表头结点，表头结点后面的第一个节点就是链栈的栈顶结点，栈中的其他节点通过它们的指针 <code>Next</code> 链接起来，栈底节点的 <code>Next</code> 为<code>NULL</code>。</p>
+</blockquote>
+<blockquote>
+<p>链栈不再包含 <code>Top</code> 和 <code>MaxSize</code> 变量，其操作集不再包含 <code>bool IsFull(Stack S)</code> ,使用也更加灵活。</p>
+</blockquote>
+<ul>
+<li><strong>链栈 C 实现代码</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> SELFDEF ElementType;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* ADT - Stack: DataObjects and Operations */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SNode</span> * <span class="title">PtrToSNode</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SNode</span> &#123;</span></span><br><span class="line">    ElementType Data;</span><br><span class="line">    PtrToSNode Next;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> PtrToSNode Stack;</span><br><span class="line"></span><br><span class="line"><span class="function">Stack <span class="title">CreateStack</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsEmpty</span><span class="params">(Stack S)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(Stack S, ElementType X)</span></span>;</span><br><span class="line"><span class="function">ElementType <span class="title">Pop</span><span class="params">(Stack S)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Stack Operations Implementation Codes */</span></span><br><span class="line"></span><br><span class="line"><span class="function">Stack <span class="title">CreateStack</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Stack S = (Stack)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct SNode));</span><br><span class="line">    S-&gt;Next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> S;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsEmpty</span><span class="params">(Stack S)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (S-&gt;Next == <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(Stack S, ElementType X)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    PtrToSNode PushCell = (PtrToSNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct SNode));</span><br><span class="line">    PushCell-&gt;Data = X; PushCell-&gt;Next = S-&gt;Next;</span><br><span class="line">    S-&gt;Next = PushCell;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ElementType <span class="title">Pop</span><span class="params">(Stack S)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    PtrToSNode PopCell = S-&gt;Next;</span><br><span class="line">    ElementType PopElem = PopCell-&gt;Data;</span><br><span class="line">    S-&gt;Next = PopCell-&gt;Next; <span class="built_in">free</span>(PopCell);</span><br><span class="line">    <span class="keyword">return</span> PopElem;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="堆栈的简单应用"><a href="#堆栈的简单应用" class="headerlink" title="堆栈的简单应用"></a>堆栈的简单应用</h2><h3 id="Case-汉诺塔非递归实现"><a href="#Case-汉诺塔非递归实现" class="headerlink" title="Case: 汉诺塔非递归实现"></a>Case: 汉诺塔非递归实现</h3><ul>
+<li>PTA 相应 OJ 题链接： <a target="_blank" rel="noopener" href="https://pintia.cn/problem-sets/434/problems/5892">汉诺塔的非递归实现</a></li>
+</ul>
+<blockquote>
+<p>借助堆栈以非递归（循环）的方式求解汉诺塔问题 <code>(n, a, c, b)</code> ，即将 <code>n</code> 个盘子从 <strong>起始柱</strong>（标记为 <code>a</code> ）通过 <strong>借助柱</strong>（标记为 <code>b</code> ）移动到 <strong>目标柱</strong>（标记为 <code>c</code>），并保证每个移动都符合汉诺塔问题的要求。</p>
+</blockquote>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><blockquote>
+<p>汉诺塔问题可抽象为：将 <code>n</code> 个圆盘从 “<strong>起始柱</strong>” 移动到 “<strong>目标柱</strong>”。<br>继续抽象原问题为：将 <code>n - 1</code> 个圆盘从 “<strong>起始柱</strong>” 移动到 “<strong>借助柱</strong>”，再将第 <code>n</code> 个圆盘从 “<strong>起始柱</strong>” 移动到 “<strong>目标柱</strong>”，最后将 <code>n - 1</code> 个圆盘从 “<strong>借助柱</strong>” 移动到 “<strong>目标柱</strong>”。<br>故汉诺塔求解问题的基本思路为：不断将 <code>n</code> 个圆盘的汉诺塔问题转化为 <code>2</code> 个 <code>n - 1</code> 圆盘的汉诺塔问题。</p>
+</blockquote>
+<h3 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h3><blockquote>
+<p>设 <code>n</code> 盘问题为 <code>(n, a, c, b)</code>， 则问题的求解可 <strong>转化</strong> 为对<br><code>(n - 1, a, b, c), (1, a, c, b), (n - 1, b, c, a)</code><br>这三个问题的求解。</p>
+</blockquote>
+<blockquote>
+<p>故可建立堆栈，将待求解问题放入堆栈，然后不断将栈顶的问题分解，在将分解出的 <code>n &gt; 1</code> 的新问题放入堆栈，如此不断循环直到堆栈为空，问题求解结束。<br>将分解出的上述三个问题压入堆栈时，应该按照 “<strong>需要先求解的问题后压入</strong>” 的顺序，也就是压入顺序为:<br><code>(n - 1, b, c, a) -&gt; (1, a, b, c) -&gt; (n - 1, a, b, c)</code></p>
+</blockquote>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><ul>
+<li><strong>汉诺塔非递归的 C 实现代码</strong></li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdbool.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ADT - Hanoi: Using Stack to solve Hanoi</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> N;</span><br><span class="line">    <span class="keyword">char</span> start, end, temp;</span><br><span class="line">&#125; ElementType;</span><br><span class="line"></span><br><span class="line"><span class="function">ElementType <span class="title">GetPush</span><span class="params">(<span class="keyword">int</span> N, <span class="keyword">char</span> start, <span class="keyword">char</span> end, <span class="keyword">char</span> temp)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Hanoi</span><span class="params">(<span class="keyword">int</span> n)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// ADT - Stack: DataObject and Operation</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SNode</span> * <span class="title">PtrToSNode</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SNode</span> &#123;</span></span><br><span class="line">    ElementType Data;</span><br><span class="line">    PtrToSNode Next;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> PtrToSNode Stack;</span><br><span class="line"></span><br><span class="line"><span class="function">Stack <span class="title">CreateStack</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsEmpty</span><span class="params">(Stack S)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(Stack S, ElementType X)</span></span>;</span><br><span class="line"><span class="function">ElementType <span class="title">Pop</span><span class="params">(Stack S)</span></span>; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> N;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;N);</span><br><span class="line">    Hanoi(N);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ElementType <span class="title">GetPush</span><span class="params">(<span class="keyword">int</span> N, <span class="keyword">char</span> start, <span class="keyword">char</span> end, <span class="keyword">char</span> temp)</span> </span>&#123;</span><br><span class="line">    ElementType P;</span><br><span class="line">    P.N = N; P.start = start; P.end = end; P.temp = temp;</span><br><span class="line">    <span class="keyword">return</span> P;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Hanoi</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ElementType P;</span><br><span class="line">    P.N = n; P.start = <span class="string">&#x27;a&#x27;</span>; P.end = <span class="string">&#x27;c&#x27;</span>; P.temp = <span class="string">&#x27;b&#x27;</span>;</span><br><span class="line">    Stack S = CreateStack(); </span><br><span class="line">    Push(S, P); <span class="comment">// push first Element into Stack</span></span><br><span class="line">    <span class="keyword">while</span> (!IsEmpty(S)) &#123;</span><br><span class="line">        P = Pop(S);</span><br><span class="line">        <span class="keyword">if</span>(P.N == <span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">&quot;%c -&gt; %c\n&quot;</span>, P.start, P.end);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            Push(S, GetPush(P.N - <span class="number">1</span>, P.temp , P.end , P.start));</span><br><span class="line">            Push(S, GetPush(<span class="number">1</span>      , P.start, P.end , P.temp));</span><br><span class="line">            Push(S, GetPush(P.N - <span class="number">1</span>, P.start, P.temp, P.end));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Stack <span class="title">CreateStack</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Stack S = (Stack)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct SNode));</span><br><span class="line">    S-&gt;Next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> S;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsEmpty</span><span class="params">(Stack S)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (S-&gt;Next == <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Push</span><span class="params">(Stack S, ElementType X)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    PtrToSNode PushCell = (PtrToSNode)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct SNode));</span><br><span class="line">    PushCell-&gt;Data = X; PushCell-&gt;Next = S-&gt;Next;</span><br><span class="line">    S-&gt;Next = PushCell;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">ElementType <span class="title">Pop</span><span class="params">(Stack S)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    PtrToSNode PopCell = S-&gt;Next;</span><br><span class="line">    ElementType PopElem = PopCell-&gt;Data;</span><br><span class="line">    S-&gt;Next = PopCell-&gt;Next; <span class="built_in">free</span>(PopCell);</span><br><span class="line">    <span class="keyword">return</span> PopElem;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><blockquote>
+<p>堆栈是一种只在一端做插入删除的受限的线性表，具有 “<strong>后入先出</strong>” 的特点，主要操作包括：入栈、出栈和栈空的判断等。  </p>
+</blockquote>
+<blockquote>
+<p>堆栈的实现可以采用 <strong>顺序存储</strong>（数组）和 <strong>链式存储</strong> 两种方式。 </p>
+</blockquote>
+<blockquote>
+<p>堆栈的应用非常广，常见的应用包括：表达式求值、函数调用、递归实现、深度优先搜索等。</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:verfolgen17@gmail.com">Class</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="http://classitblog.com/Algorithms/ZJU_DataStructure/Linear_Structure/BasicStack/">http://classitblog.com/Algorithms/ZJU_DataStructure/Linear_Structure/BasicStack/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Linear-Structure/">Linear Structure</a><a class="post-meta__tags" href="/tags/Stack/">Stack</a></div><div class="post_share"><div class="social-share" data-image="/images/cover/BasicStack.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/Algorithms/ZJU_DataStructure/Linear_Structure/BasicQueue/"><img class="prev-cover" src="/images/cover/BasicQueue.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Basic Queue</div></div></a></div><div class="next-post pull-right"><a href="/Algorithms/ZJU_DataStructure/Linear_Structure/LinearListBasicApplication/"><img class="next-cover" src="/images/cover/LinearListBasicApplication.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Linear List Basic Application</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/Algorithms/ZJU_DataStructure/Linear_Structure/BasicQueue/" title="Basic Queue"><img class="cover" src="/images/cover/BasicQueue.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-28</div><div class="title">Basic Queue</div></div></a></div><div><a href="/Algorithms/ZJU_DataStructure/Linear_Structure/LinearListBasicApplication/" title="Linear List Basic Application"><img class="cover" src="/images/cover/LinearListBasicApplication.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-11-25</div><div class="title">Linear List Basic Application</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Class</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">21</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">31</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Class-17"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Class-17" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:verfolgen17@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">New articles about Sort are upload!</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E6%A0%88%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.</span> <span class="toc-text">堆栈的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E6%A0%88%E7%9A%84%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">堆栈的抽象数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E6%A0%88%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">堆栈的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.1.</span> <span class="toc-text">顺序存储实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.2.</span> <span class="toc-text">链式存储实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A0%86%E6%A0%88%E7%9A%84%E7%AE%80%E5%8D%95%E5%BA%94%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">堆栈的简单应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Case-%E6%B1%89%E8%AF%BA%E5%A1%94%E9%9D%9E%E9%80%92%E5%BD%92%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.1.</span> <span class="toc-text">Case: 汉诺塔非递归实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Analysis"><span class="toc-number">4.2.</span> <span class="toc-text">Analysis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Solution"><span class="toc-number">4.3.</span> <span class="toc-text">Solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Code"><span class="toc-number">4.4.</span> <span class="toc-text">Code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Contest/LCCUP'21-Spring-P/" title="LCCUP'21 春季赛 个人赛题解"><img src="/images/cover/LCCUP'21-Spring-P.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LCCUP'21 春季赛 个人赛题解"/></a><div class="content"><a class="title" href="/Contest/LCCUP'21-Spring-P/" title="LCCUP'21 春季赛 个人赛题解">LCCUP'21 春季赛 个人赛题解</a><time datetime="2021-04-06T01:00:00.000Z" title="Created 2021-04-06 09:00:00">2021-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/SortExpand/" title="Sort Expand"><img src="/images/cover/SortExpand.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sort Expand"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/SortExpand/" title="Sort Expand">Sort Expand</a><time datetime="2021-03-29T10:00:00.000Z" title="Created 2021-03-29 18:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/RadixSort/" title="Radix Sort"><img src="/images/cover/RadixSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Radix Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/RadixSort/" title="Radix Sort">Radix Sort</a><time datetime="2021-03-29T06:00:00.000Z" title="Created 2021-03-29 14:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/MergeSort/" title="Merge Sort"><img src="/images/cover/MergeSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Merge Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/MergeSort/" title="Merge Sort">Merge Sort</a><time datetime="2021-03-29T05:00:00.000Z" title="Created 2021-03-29 13:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/SwapSort/" title="Swap Sort"><img src="/images/cover/SwapSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Swap Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/SwapSort/" title="Swap Sort">Swap Sort</a><time datetime="2021-03-28T09:00:00.000Z" title="Created 2021-03-28 17:00:00">2021-03-28</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Class</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>
