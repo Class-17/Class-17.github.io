@@ -1,0 +1,503 @@
+<!DOCTYPE html><html lang="[&quot;en&quot;,&quot;zh-CN&quot;,&quot;default&quot;]" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2021安徽省大学生程序设计大赛网络赛-题解 | Class's Blog</title><meta name="keywords" content="Contest,Two Pointers,Math,Greedy,DFS,Dp,Dichotomy,Prune,Bitwise"><meta name="author" content="Class,verfolgen17@gmail.com"><meta name="copyright" content="Class"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="2021安徽省大学生程序设计大赛 4月网络赛真题及其题目解析，本次比赛共 7 题，难度适中，较多队伍满分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2021安徽省大学生程序设计大赛网络赛-题解">
+<meta property="og:url" content="https://classitblog.com/Contest/21AHCPC-Pre/index.html">
+<meta property="og:site_name" content="Class&#39;s Blog">
+<meta property="og:description" content="2021安徽省大学生程序设计大赛 4月网络赛真题及其题目解析，本次比赛共 7 题，难度适中，较多队伍满分">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://classitblog.com/img/cover/d.png">
+<meta property="article:published_time" content="2021-04-25T12:00:00.000Z">
+<meta property="article:modified_time" content="2021-04-26T05:06:44.492Z">
+<meta property="article:author" content="Class">
+<meta property="article:tag" content="Contest">
+<meta property="article:tag" content="Two Pointers">
+<meta property="article:tag" content="Math">
+<meta property="article:tag" content="Greedy">
+<meta property="article:tag" content="DFS">
+<meta property="article:tag" content="Dp">
+<meta property="article:tag" content="Dichotomy">
+<meta property="article:tag" content="Prune">
+<meta property="article:tag" content="Bitwise">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://classitblog.com/img/cover/d.png"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="https://classitblog.com/Contest/21AHCPC-Pre/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="preconnect" href="//zz.bdstatic.com"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?feff436d72ef91f53ec248329a9d43dd";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-26 13:06:44'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">Loading...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/favicon.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/Artitalk/"><i class="fa-fw fas fa-comment"></i><span> Artitalk</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/img/cover/d.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Class's Blog</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/Artitalk/"><i class="fa-fw fas fa-comment"></i><span> Artitalk</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">2021安徽省大学生程序设计大赛网络赛-题解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-04-25T12:00:00.000Z" title="Created 2021-04-25 20:00:00">2021-04-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2021-04-26T05:06:44.492Z" title="Updated 2021-04-26 13:06:44">2021-04-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Contest/">Contest</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">Word count:</span><span class="word-count">4.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">Reading time:</span><span>17min</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<ul>
+<li><strong>本题解参考了 安徽科技学院 赵靖老师 及 合肥学院 李飞翔同学 提供的解题代码，在此向两位表示诚挚的感谢</strong></li>
+</ul>
+</blockquote>
+<p><strong>赵靖老师及李飞翔同学所提供解题代码的原链接</strong>：<br><a target="_blank" rel="noopener" href="https://gitee.com/webturing/ahACMSolutions/tree/master/2021April/%E6%9C%AC%E7%A7%91%E7%BB%84">https://gitee.com/webturing/ahACMSolutions/tree/master/2021April/%E6%9C%AC%E7%A7%91%E7%BB%84</a></p>
+<hr>
+<h2 id="A-最美合数"><a href="#A-最美合数" class="headerlink" title="A. 最美合数"></a>A. 最美合数</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>有一些合数有很多的因子， <em>Peter</em> 想知道在某一个范围内谁拥有的因子最多，这个数就是最美的合数；已知正整数 $x$ 的因子个数记为 <code>div(x)</code> 。例如，$1，2，3，6$ 都是正整数 $6$ 的因子， 且 <code>div(6) = 4</code> 。设 $a$ 和 $b$ 是 $2$ 个正整 数，$a \le b$，找出 $a$ 和 $b$ 之间因子个数最多的数 $x$ 。</p>
+<h3 id="输入说明"><a href="#输入说明" class="headerlink" title="输入说明"></a>输入说明</h3><blockquote>
+<p>输入数据有 $2$ 个正整数 $a$ 和 $b$ 。<br>$1 \le a \le b \le 2000000$</p>
+</blockquote>
+<h3 id="输出说明"><a href="#输出说明" class="headerlink" title="输出说明"></a>输出说明</h3><blockquote>
+<p>若找到的 $a$ 和 $b$ 之间因子个数最多的数是 $x$，将 <code>div(x)</code> 输出。</p>
+</blockquote>
+<h3 id="输入样例"><a href="#输入样例" class="headerlink" title="输入样例"></a>输入样例</h3><p><code>1 36</code></p>
+<h3 id="输出样例"><a href="#输出样例" class="headerlink" title="输出样例"></a>输出样例</h3><p><code>9</code></p>
+<h3 id="数据范围及提示"><a href="#数据范围及提示" class="headerlink" title="数据范围及提示"></a>数据范围及提示</h3><blockquote>
+<p>$[1,36]$ 之间这个数是 $36$ 有 $1, 2, 3, 4, 6, 8, 12, 18, 36$ ，共 $9$ 个因子。</p>
+</blockquote>
+<hr>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>本题标签</strong>：<strong>数学</strong>；</p>
+<p>首先介绍因子统计。</p>
+<blockquote>
+<ul>
+<li>一个正整数本身是其一个因子。</li>
+<li>一个正整数是其所有倍数的因子。</li>
+</ul>
+</blockquote>
+<p>得到 $[1, n]$ 之间因子统计的代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt;= n; j += i)</span><br><span class="line">            cnt[j]++;</span><br></pre></td></tr></table></figure>
+
+<p>分析其时间复杂度。</p>
+<p>分析上述代码可得到第二层循环执行次数的序列</p>
+<blockquote>
+<p>$$<br>\frac{n}{1} \ , \ \frac{n}{2} \ , \ \frac{n}{3} \ , \ \cdots \ , \ \frac{n}{n - 1} \ , \ \frac{n}{n}<br>$$</p>
+</blockquote>
+<p>即 </p>
+<blockquote>
+<p>$$<br>( 1 \ , \ \frac{1}{2} \ , \ \frac{1}{3} \ , \ \cdots \ , \ \frac{1}{n - 1} \ , \ \frac{1}{n}) \ \cdot \ n<br>$$</p>
+</blockquote>
+<p>前半部分为调和级数，下面简单解释其求和过程。</p>
+<blockquote>
+<p>$$<br>1 \ + \ \frac{1}{2} \ + \ \frac{1}{3} \ + \ \cdots \ + \ \frac{1}{n - 1} \ + \ \frac{1}{n} \ = \ \sum_{i = 1}^{n}\frac{1}{i}<br>$$</p>
+</blockquote>
+<blockquote>
+<p>$$<br>\sum_{x = 1}^{n} \frac{1}{x} &gt; \int_1^{n + 1} \frac{1}{x}dx = ln(n + 1) \qquad<br>$$</p>
+</blockquote>
+<p>上不等式两端为同一数量级，故可分析得出上述因子统计代码两层循环总时间复杂度为 $O(NlogN)$ 。</p>
+<h3 id="AC-代码"><a href="#AC-代码" class="headerlink" title="AC 代码"></a>AC 代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">cnt</span><span class="params">(b + <span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= b; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &lt;= b; j += i)</span><br><span class="line">            cnt[j]++;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = a; i &lt;= b; i++)</span><br><span class="line">        ans = max(ans, cnt[i]);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="B-区间重叠"><a href="#B-区间重叠" class="headerlink" title="B. 区间重叠"></a>B. 区间重叠</h2><h3 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h3><p>在无限长的数轴上画一个线段 $[a,b) (0 \le a &lt; b &lt; 2000000)$表示从 $[a], \ [a + 1], \ \cdots, \ [b - 1]$ 都覆盖了一次，现在画出给定 $N$ 个线段 $[a_i, b_i)$ ，问你数轴上哪个区域被覆盖的次数最多，输出这个次数即可， 注意 <code>1-2, 2-3</code> 之间没有重叠部分。</p>
+<h3 id="输入说明-1"><a href="#输入说明-1" class="headerlink" title="输入说明"></a>输入说明</h3><blockquote>
+<p>输入第一行有 $1$ 个正整数 $k$ ，表示有 $k$ 线段。接下来的 $k$ 行中，每行有 $2$ 个正整数，分别表示 $k$ 个线段的开始坐标和结束坐标。$2 \le k \le 2000000$ 。</p>
+</blockquote>
+<h3 id="输出说明-1"><a href="#输出说明-1" class="headerlink" title="输出说明"></a>输出说明</h3><blockquote>
+<p>输出最多的覆盖次数</p>
+</blockquote>
+<h3 id="输入样例-1"><a href="#输入样例-1" class="headerlink" title="输入样例"></a>输入样例</h3><p><code>3</code><br><code>2 3</code><br><code>1 5</code><br><code>2 5</code></p>
+<h3 id="输出样例-1"><a href="#输出样例-1" class="headerlink" title="输出样例"></a>输出样例</h3><p><code>3</code></p>
+<h3 id="数据范围及提示-1"><a href="#数据范围及提示-1" class="headerlink" title="数据范围及提示"></a>数据范围及提示</h3><blockquote>
+<p>第 1 条线段 <code>2-3</code><br>第 2 条线段 <code>1-2-3-4-5</code><br>第 3 条线段 <code>2-3-4-5</code><br>所以子线段 <code>2-3</code> 被覆盖了 <code>3</code> 次</p>
+</blockquote>
+<hr>
+<h3 id="解题思路-1"><a href="#解题思路-1" class="headerlink" title="解题思路"></a>解题思路</h3><blockquote>
+<ul>
+<li><strong>本题标签</strong>：<strong>数学</strong>；<strong>动态规划</strong>；</li>
+</ul>
+</blockquote>
+<p>简单分析题目可得暴力解法：对所在线段 $[a, b)$ 进行覆盖统计，最后得出最大重叠值。时间复杂度为 $O((b - a)N)$ 根据题目所给数据，此做法显然超时。</p>
+<p>进一步分析题目：<br>由于上述的对线段内每一段子线段的统计超出时限，思考<br><strong>是否存在方法使得已知线段端点，即可 <em>标记/统计</em> 整条线段</strong>。 或<br><strong>是否存在方法使得已知所有线段端点，即可以线性复杂度统计出所有重叠子线段</strong>。</p>
+<p>举例进行推导：<br>现有线段 $[1, 5)$ ，则 <code>1-5</code> 内 $4$ 条子线段都 <strong>将</strong> 被覆盖一次，<br>现加入一条线段 $[2, 5)$ ，则 <code>1-5</code> 内 <code>2-5</code> 的 $3$ 条子线段 <strong>将</strong> 被覆盖两次。<br>再加入一条线段 $[2, 3)$ ，<code>1-5</code> 内 <code>2-3</code> 子线段 <strong>将</strong> 被覆盖三次。</p>
+<p>如何确定一条子线段被覆盖的次数？<br>若一子线段位于 $n$ 条线段上，则其被覆盖的次数为 $n$ 。</p>
+<p>宏观考虑该问题，在数轴上，每一条线段，都会对数轴产生影响，最后根据所有线段对于数轴的影响，统计结果。</p>
+<p>设一<strong>无限长线段</strong> $[a, \infty)$ ，令 $lines[a] + 1$ ，标记为 $a$ 点为一线段的起始位置；<br>另设一<strong>无限长线段</strong> $[b, \infty) \ , \ b \ge a$ , 令 $lines[b] + 1$ , 标记为 $b$ 点为一线段的起始位置。<br>若数轴上只存在此两条线段，那么采用以上方式，可推导出，数轴上所有子线段的重叠数递推公式 </p>
+<blockquote>
+<p>$$<br>lines[i] \ = \ lines[i] \ + \ lines[i - 1]<br>$$</p>
+</blockquote>
+<p>故而归纳出，数轴上存在任意多的 <strong>无限长线段</strong> ，子线段重叠数都符合上述递推公式。</p>
+<p>下面分析 <strong>有限长线段</strong> 的情况，有限长线段与无限长线段的区别在于，<strong>线段的终点会对其所影响到的数轴区间的大小产生影响</strong>。也就是说，一线段 $[a, b)$ 对数轴的影响，从 $a$ 点开始，在 $b$点要消除这个影响，从而正确的表达该线段。</p>
+<p>根据<strong>无限长线段</strong>的结论， 对于<strong>有限长线段</strong> $[a, b)$ ：<br>$lines[a] + 1$ 表示其对数轴的影响从 $a$ 点开始, 此操作对数轴造成的影响为  $a$ 点之后的子线段被重叠数 $+1$ , 此影响若想在 $b$ 点处消除，则 $lines[b] - 1$ 即可 ，$b$ 点之后的子线段便不会受到线段 $[a, b)$ 的影响。</p>
+<p>故对于读入线段 $[a, b)$ ，对数轴的影响操作表示为 </p>
+<blockquote>
+<p>$$<br>lines[a] \ + \ 1; \quad lines[b] \ - \ 1;<br>$$</p>
+</blockquote>
+<h3 id="AC-代码-1"><a href="#AC-代码-1" class="headerlink" title="AC 代码"></a>AC 代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXLEN = <span class="number">1e7</span> * <span class="number">2</span> + <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">lines</span><span class="params">(MAXLEN)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; k;</span><br><span class="line">    <span class="keyword">while</span> (k--) &#123;</span><br><span class="line">        <span class="keyword">int</span> a, b;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; a &gt;&gt; b;</span><br><span class="line">        lines[a]++;</span><br><span class="line">        lines[b]--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; lines.size(); i++)</span><br><span class="line">        ans = max(ans, lines[i] += lines[i - <span class="number">1</span>]);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="C-超级幂积"><a href="#C-超级幂积" class="headerlink" title="C. 超级幂积"></a>C. 超级幂积</h2><h3 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h3><p>对于一个长度为n的十进制整数 $N = (b_1, b_2, \cdots, b_n) (0 \le b_i \le 9,b_1 \ne 0)$ 定义 $P(N) = b_1^1 \ * \ b_2^2 \ * \  \cdots \ * \ b_n^n$ 。<br>当然这个数很大，我们只要你输出 $P(N)$ % $1000000007$ 的结果。<br>例如 $P(123) = (1^1 \ * \ 2^2 \ * \ 3^3) \  mod \ 1000000007 = 108$ 。</p>
+<h3 id="输入说明-2"><a href="#输入说明-2" class="headerlink" title="输入说明"></a>输入说明</h3><blockquote>
+<p>多组输入，每一行一个数字 $1 \le N \le 10^{1000000}$</p>
+</blockquote>
+<h3 id="输出说明-2"><a href="#输出说明-2" class="headerlink" title="输出说明"></a>输出说明</h3><blockquote>
+<p>$P(N)$ % $1000000007$ 的结果</p>
+</blockquote>
+<h3 id="输入样例-2"><a href="#输入样例-2" class="headerlink" title="输入样例"></a>输入样例</h3><p><code>123</code></p>
+<h3 id="输出样例-2"><a href="#输出样例-2" class="headerlink" title="输出样例"></a>输出样例</h3><p><code>108</code></p>
+<hr>
+<h3 id="解题思路-2"><a href="#解题思路-2" class="headerlink" title="解题思路"></a>解题思路</h3><blockquote>
+<ul>
+<li><strong>本题标签</strong>： <strong>数学</strong>；</li>
+</ul>
+</blockquote>
+<p>利用取模运算性质：</p>
+<blockquote>
+<p>$$<br>A \ * \ C \ mod \ B \ = \ A \ mod \ B \ * \ C \ mod \ B<br>$$</p>
+</blockquote>
+<p>本题测试数据及时限较弱，直接运算即可。</p>
+<h3 id="AC-代码-2"><a href="#AC-代码-2" class="headerlink" title="AC 代码"></a>AC 代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> MOD = <span class="keyword">int</span>(<span class="number">1e9</span> + <span class="number">7</span>);</span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">0</span>, ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">cin</span> &gt;&gt; c) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= p; i++)</span><br><span class="line">            <span class="comment">// ans 运算中可能超出 int 范围，故进行类型转换</span></span><br><span class="line">            ans = ((<span class="keyword">long</span> <span class="keyword">long</span>)ans * (c - <span class="string">&#x27;0&#x27;</span>)) % MOD;</span><br><span class="line">        p++; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="D-最优负载"><a href="#D-最优负载" class="headerlink" title="D. 最优负载"></a>D. 最优负载</h2><h3 id="题目描述-3"><a href="#题目描述-3" class="headerlink" title="题目描述"></a>题目描述</h3><p>皮带运输机有按照顺序 $(i = 0, 1, \cdots, n − 1)$ 的 $n$ 包裹重量为 $w_i$ 。您应该将所有包裹装载到具有共同最大负载 $P$ 的 $k$ 辆卡车 上。除非顺序中包裹的总重量不超过最大负载 $P$，否则每辆卡车可以从带式输送机连续装载包裹（大于或等于零）。</p>
+<p>编写一个程序，读取 $n, k$ 和 $w_i$ ，并输出最大负载 $P$ 的最小值，以便从带式输送机上装载所有包裹。</p>
+<h3 id="输入说明-3"><a href="#输入说明-3" class="headerlink" title="输入说明"></a>输入说明</h3><blockquote>
+<p>在第一行中，两个整数 $n$ 和 $k$ 由一个空格字符分隔。在下面的 $n$ 行中，分别给出 $w_i$ 。</p>
+</blockquote>
+<h3 id="输出说明-3"><a href="#输出说明-3" class="headerlink" title="输出说明"></a>输出说明</h3><blockquote>
+<p>打印 $P$ 的最小值。</p>
+</blockquote>
+<h3 id="输入样例-3"><a href="#输入样例-3" class="headerlink" title="输入样例"></a>输入样例</h3><p><code>5 3</code><br><code>8</code><br><code>1</code><br><code>7</code><br><code>3</code><br><code>9</code></p>
+<h3 id="输出样例-3"><a href="#输出样例-3" class="headerlink" title="输出样例"></a>输出样例</h3><p><code>10</code></p>
+<h3 id="数据范围及提示-2"><a href="#数据范围及提示-2" class="headerlink" title="数据范围及提示"></a>数据范围及提示</h3><blockquote>
+<p>$1 \le n \le 100,000$;<br>$1 \le k \le 100,000$;<br>$1 \le w_i \le 10,000$.</p>
+</blockquote>
+<hr>
+<h3 id="解题思路-3"><a href="#解题思路-3" class="headerlink" title="解题思路"></a>解题思路</h3><blockquote>
+<ul>
+<li><strong>本题标签</strong>： <strong>二分</strong>；</li>
+</ul>
+</blockquote>
+<p>根据题意，理解得，为求得最小的 $P$, 使得 $k$ 辆卡车刚好完成包裹装载。<br>暴力解法为: 从 $1$ 开始向上枚举 $P$，直到 $P$ 可以使得 $k$ 辆卡车刚好完成包裹装载。 此方法发时间复杂度为 $O(N^2)$ 级，显然超出时间限制。</p>
+<blockquote>
+<p>继续观察并理解题目，可发现，允许得 $P$ 的<strong>最小值</strong>为：<br>$$<br>P_{min} \ = \ max(w_i), \quad 0 \le i &lt; n<br>$$<br>因为只有 $P$ 的值不小于最大 $w_i$ ，才能使得所有的包裹都可以被装载。<br>继续分析可得 $P$ 的<strong>最大值</strong>为：<br>$$<br>P_{max} \ =  \ \sum_{i = 0}^{n-1} w_i<br>$$<br>即 $k$ 为最小值 $1$ 的情况下，依然可以完成包裹的装载。</p>
+</blockquote>
+<blockquote>
+<p>根据题目描述，$P$ 越大，需要的 $k$ 就越少，故 $P_{min}$ 与 $P_{max}$ 之间的 $k$ 为一非递增序列<br>$$<br>\{k_i, \ k_{i + 1}, \ \cdots, \ k_j\} \ ，\ k_i = P_{min}, \quad k_j = P_{max}<br>$$</p>
+</blockquote>
+<p>故可采用<strong>二分查找</strong>的方式找到第一个 $k_i = k$ , 从而得到最终的 $k$ 所对应的最小 $P$ 。</p>
+<h3 id="AC-代码-3"><a href="#AC-代码-3" class="headerlink" title="AC 代码"></a>AC 代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算当前负载 P 需要的卡车数量 k</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getVal</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; w, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> currCap = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; w.size(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(currCap - w[i] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            currCap = x - w[i];</span><br><span class="line">            val++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> currCap -= w[i]; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> val;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二分查找区间内卡车数量 k 的最小可装载量 P </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; w, <span class="keyword">int</span> hi, <span class="keyword">int</span> lo, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(hi &lt; lo) &#123;</span><br><span class="line">        <span class="keyword">int</span> mid = hi + (lo - hi) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span> val = getVal(w, mid);</span><br><span class="line">        <span class="keyword">if</span>(val &gt; x) hi = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span>        lo = mid;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> hi;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; k;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">w</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">int</span> lowP = <span class="number">0</span>, upP = <span class="number">0</span>, P = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; w[i];</span><br><span class="line">        <span class="comment">// 获取最小 P 和最大 P</span></span><br><span class="line">        <span class="keyword">if</span>(w[i] &gt; lowP) lowP = w[i];</span><br><span class="line">        upP += w[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; binarySearch(w, lowP, upP, k) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="E-重组小棍棒"><a href="#E-重组小棍棒" class="headerlink" title="E. 重组小棍棒"></a>E. 重组小棍棒</h2><h3 id="题目描述-4"><a href="#题目描述-4" class="headerlink" title="题目描述"></a>题目描述</h3><p>给定一个用单位长度的小棍拼成的 $N$ 位的数（参照下图 $0-9$ 的数字显示），将小棍重新排列后，能得到 $k$ 位的最大的数是多少？<br>注意不能多出或者少一位; 小棍要全部用上。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200206155033664.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Rnc3NsX3hoeQ==,size_16,color_FFFFFF,t_70"></p>
+<h3 id="输入说明-4"><a href="#输入说明-4" class="headerlink" title="输入说明"></a>输入说明</h3><blockquote>
+<p>第一行整数 $T$ ，表示数据组数<br>接下来 $T$ 行，每行一个整数 $N$ ，然后是 $N$ 位数，表示原来的数，可能会有前导 $0$ ，中间用空格隔开。</p>
+</blockquote>
+<h3 id="输出说明-4"><a href="#输出说明-4" class="headerlink" title="输出说明"></a>输出说明</h3><blockquote>
+<p>对于每组数据，输出一行，最大的能得到的数是多少。</p>
+</blockquote>
+<h3 id="输入样例-4"><a href="#输入样例-4" class="headerlink" title="输入样例"></a>输入样例</h3><p><code>3</code><br><code>1 3</code><br><code>3 512</code><br><code>3 079</code></p>
+<h3 id="输出样例-4"><a href="#输出样例-4" class="headerlink" title="输出样例"></a>输出样例</h3><p><code>5</code><br><code>977</code><br><code>997</code></p>
+<h3 id="数据范围及提示-3"><a href="#数据范围及提示-3" class="headerlink" title="数据范围及提示"></a>数据范围及提示</h3><blockquote>
+<ul>
+<li>对于 20% 的数据：$1 \le n \le 10$</li>
+<li>对于 60% 的数据：$1 \le n \le 1000$</li>
+<li>对于 100% 的数据： $1 \le n \le  100000，1 \le T \le 10$</li>
+</ul>
+</blockquote>
+<hr>
+<h3 id="解题思路-4"><a href="#解题思路-4" class="headerlink" title="解题思路"></a>解题思路</h3><blockquote>
+<ul>
+<li><strong>本题标签</strong>：<strong>贪心</strong>；<strong>DFS</strong>；<strong>剪枝</strong>；</li>
+</ul>
+</blockquote>
+<p>通过观察数字拼接所花费小棍可得数组<br><code>val[] = &#123;6, 2, 5, 5, 4, 5, 6, 3, 7, 6&#125;</code></p>
+<p>直接了当的想法是 <code>dfs</code> 枚举所有小棍，来获取最大小棍拼接数字。<br>此暴力算法的时间复杂度为 $O(10^N)$，显然超出时间限制。</p>
+<p>尝试分析观察，降低时间复杂度：</p>
+<blockquote>
+<ul>
+<li><strong>各个数字消耗小棍数量不唯一，有重复</strong>。</li>
+</ul>
+</blockquote>
+<p>由于题目要求最大所得数，故采取贪心策略，同小棍消耗数量，选取最大者进行枚举。</p>
+<p>从 $0$ 位枚举至 $n - 1$位，由于选取最大数即可，采取大数优先枚举原则，<strong>设置枚举数组</strong>：<br><code>nums[] = &#123;9, 8, 7, 5, 4, 1&#125;</code>，<br>此 $6$ 个数字分别为其所花费小棍相同情况下，可拼接的最大数字。</p>
+<blockquote>
+<p>进一步优化算法，枚举中，组成数字最少消耗小棍量为 $2$， 故可设置 <strong>剪枝条件1</strong>：</p>
+<blockquote>
+<p>“<strong>当剩余小棍不足够拼接剩余数字时，该轮枚举失败返回</strong>”， </p>
+</blockquote>
+</blockquote>
+<blockquote>
+<p>由于采取贪心策略，故第一次枚举成功的序列必定为最大数字组成，可设置 <strong>剪枝条件2</strong>：</p>
+<blockquote>
+<p>“<strong>该轮枚举成功，不再进行后续枚举，返回成功结果</strong>”。</p>
+</blockquote>
+</blockquote>
+<h3 id="AC-代码-4"><a href="#AC-代码-4" class="headerlink" title="AC 代码"></a>AC 代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数字对应小棒数</span></span><br><span class="line"><span class="keyword">int</span> val[] = &#123;<span class="number">6</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">6</span>&#125;;</span><br><span class="line"><span class="comment">// 贪心策略，同木棒花费数量，选择最大数</span></span><br><span class="line"><span class="keyword">int</span> nums[] = &#123;<span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">1</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">dfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; ans, <span class="keyword">int</span> p, <span class="keyword">int</span> left)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 剩余小棍不满最最低要求，返回</span></span><br><span class="line">    <span class="keyword">if</span>(left &lt; (ans.size() - p) * <span class="number">2</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">// 枚举出所有小棍，返回枚举结果</span></span><br><span class="line">    <span class="keyword">if</span>(p == ans.size()) <span class="keyword">return</span> left == <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 依据贪心策略，枚举小棍</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">6</span>; i++) &#123;</span><br><span class="line">        ans[p] = nums[i];</span><br><span class="line">        <span class="comment">// 枚举最优解成功，返回</span></span><br><span class="line">        <span class="keyword">if</span>(dfs(ans, p + <span class="number">1</span>, left - val[nums[i]]))</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="keyword">int</span> n;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">        <span class="built_in">string</span> s;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; s;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//  获取可用小棍数量</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c : s) left += val[c - <span class="string">&#x27;0&#x27;</span>];</span><br><span class="line">        <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">ans</span><span class="params">(n)</span></span>;</span><br><span class="line">        dfs(ans, <span class="number">0</span>, left);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num : ans) <span class="built_in">cout</span> &lt;&lt; num;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="F-区间异或"><a href="#F-区间异或" class="headerlink" title="F. 区间异或"></a>F. 区间异或</h2><h3 id="题目描述-5"><a href="#题目描述-5" class="headerlink" title="题目描述"></a>题目描述</h3><p>“按位异或(xor)” 的运算引起了 <em>Tom</em> 的莫大兴趣。于是，他思考这样的一个问题：给一个长度为 $n$ 的整数序列 $A$ ，如何计算出满足下列两个条件的整数对 $(l, r)$ 的数量。 </p>
+<blockquote>
+<ul>
+<li><ol>
+<li>$1 \ \le \ l \ \le  \ r \ \le \ n$ ;</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>$A_l \ xor \ A_{l+1} \ xor \ \cdots \ xor \ A_r \ = \ A_l \ + \ A_{l+1} \ + \  \cdots \ + \ A_r$ .</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<p>这里的 xor 就是按位异或。<br><em>Tom</em> 虽然提出了问题，但他自己不会解决，只好又要麻烦你解决啦。</p>
+<h3 id="输入说明-5"><a href="#输入说明-5" class="headerlink" title="输入说明"></a>输入说明</h3><blockquote>
+<ul>
+<li>输入有两行： </li>
+<li>第一行一个正整数 $n$ ，表示整数序列 $A$ 的元素个数。</li>
+<li>第二行有 $n$ 个整数，第 $i$ 个整数 $A_i$ 表示整数序列 $A$ 的第 $i$ 个元素的值。 </li>
+<li>$1 \le n \le 200000，0 \le A_i \le 2^{20}$ 。</li>
+</ul>
+</blockquote>
+<h3 id="输出说明-5"><a href="#输出说明-5" class="headerlink" title="输出说明"></a>输出说明</h3><blockquote>
+<p>输出一行，包括一个正整数，表示满足条件的整数对 $(l, r)$ 的数量。</p>
+</blockquote>
+<h3 id="输入样例-5"><a href="#输入样例-5" class="headerlink" title="输入样例"></a>输入样例</h3><p><code>4</code><br><code>2 5 4 6</code></p>
+<h3 id="输出样例-5"><a href="#输出样例-5" class="headerlink" title="输出样例"></a>输出样例</h3><p><code>5</code></p>
+<h3 id="数据范围及提示-4"><a href="#数据范围及提示-4" class="headerlink" title="数据范围及提示"></a>数据范围及提示</h3><blockquote>
+<p>$(l, r) = (1, 1), \ (2, 2), \ (3, 3), \ (4, 4)$ 显然满足条件，还有 $(l, r) = (1, 2)$ 也满足条件。<br>因为 $A_1 \ xor \ A_2 \ = \ 2 \ xor \ 5 \ = \ 7$，而 $A_1 \ + \ A_2 \ = \ 2 \ + \ 5 \ = \ 7$ 。所以满足条件的整数对 $(l, r)$ 的数量为 $5$ 。</p>
+</blockquote>
+<hr>
+<h3 id="解题思路-5"><a href="#解题思路-5" class="headerlink" title="解题思路"></a>解题思路</h3><blockquote>
+<ul>
+<li><strong>本题标签</strong>：<strong>位运算</strong>；<strong>双指针</strong>；<strong>动态规划</strong>；</li>
+</ul>
+</blockquote>
+<p>如果直接根据题意暴力枚举 $(l, r)$， 时间复杂度为 $O(N^2)$，明显会超出题目时间限制。</p>
+<p>仔细分析题目可发现：</p>
+<blockquote>
+<ul>
+<li>若序列 $A_l, A_{l + 1}, \cdots, A_r$ 满足题意，则 $A_l, A_{l + 1}, \cdots, A_{r - 1}$ 和 $ A_{l + 1}, \cdots, A_r$也必定满足性质。</li>
+</ul>
+</blockquote>
+<p>异或运算作为位运算具有以下性质：</p>
+<blockquote>
+<ul>
+<li>$A \ xor \ A \ = \ 0$ （一个数对于其本身做 $xor$ 运算结果为 $0$）</li>
+<li>$A \ xor \ 0 = A$ （一个数对 $0$ 做 $xor$ 运算结果为其本身）</li>
+<li>$A \ xor B \ xor \ C = A \ xor \ C \ xor \ B$ （结合律)</li>
+</ul>
+</blockquote>
+<p>由上述性质可得</p>
+<blockquote>
+<ul>
+<li>$A \ xor \ B \ xor \ C \ xor \ A = \ B \ xor \ C$</li>
+</ul>
+</blockquote>
+<p>由上述性质，可思考采用双指针算法，初始态另 <code>l = 0, r = 0</code> ， 先增长 <code>r</code>, 持续运算当前序列异或和 <code>sum</code> 直至 $(l, r)$ 不满足题目要求， 此时利用上述性质， 移动 <code>l</code> 指针，回溯异或和 <code>sum</code> 得序列 $A_{l + 1}, \cdots, A_r$ 异或和，并不断向后推导，直至 $(l, r)$ 满足题设条件，再继续移动 <code>r</code> 指针。<br>重复上述步骤直至 <code>r == n</code> 。完成整个序列统计。</p>
+<h3 id="AC-代码-5"><a href="#AC-代码-5" class="headerlink" title="AC 代码"></a>AC 代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">A</span><span class="params">(n)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; A[i];</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">long</span> sum = <span class="number">0</span>, cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (r &lt; n) &#123;</span><br><span class="line">        <span class="comment">// 移动左指针 l ， 回溯 sum，至(l, r) 满足题设条件</span></span><br><span class="line">        <span class="keyword">while</span> ((sum ^ A[r]) != (sum + A[r]))</span><br><span class="line">            sum ^= A[l++];</span><br><span class="line">        <span class="comment">// 移动右指针 r 统计可行区间，至(l, r) 不满足题设条件</span></span><br><span class="line">        cnt += r - l + <span class="number">1</span>;</span><br><span class="line">        sum ^= A[r++];  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; cnt &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="G-最小乘积"><a href="#G-最小乘积" class="headerlink" title="G. 最小乘积"></a>G. 最小乘积</h2><h3 id="题目描述-6"><a href="#题目描述-6" class="headerlink" title="题目描述"></a>题目描述</h3><p>输入5个个位数 <code>ABCDE</code>（至少 $2$ 个非 $0$ ），要求按组合出一个 $3$ 位数和 $2$ 位数（高位不为 $0$ ）， 使得乘积最小，你的任务是输出这个乘积。</p>
+<h3 id="输入说明-6"><a href="#输入说明-6" class="headerlink" title="输入说明"></a>输入说明</h3><blockquote>
+<p>组合出一个 $2$ 位数和 $3$ 位数使得乘积最小。</p>
+</blockquote>
+<h3 id="输出说明-6"><a href="#输出说明-6" class="headerlink" title="输出说明"></a>输出说明</h3><blockquote>
+<p>输出最小的乘积。</p>
+</blockquote>
+<h3 id="输入样例-6"><a href="#输入样例-6" class="headerlink" title="输入样例"></a>输入样例</h3><p><code>1 2 3 4 5</code></p>
+<h3 id="输出样例-6"><a href="#输出样例-6" class="headerlink" title="输出样例"></a>输出样例</h3><p><code>3185</code></p>
+<h3 id="数据范围及提示-5"><a href="#数据范围及提示-5" class="headerlink" title="数据范围及提示"></a>数据范围及提示</h3><blockquote>
+<p>高位不能为 $0$，数据保证至少有 $2$ 个不是 $0$ 的数</p>
+</blockquote>
+<hr>
+<h3 id="解题思路-6"><a href="#解题思路-6" class="headerlink" title="解题思路"></a>解题思路</h3><blockquote>
+<ul>
+<li><strong>本题标签</strong>：<strong>简单枚举</strong>；</li>
+</ul>
+</blockquote>
+<p>本题较为简单，数据量不大，在5位数中进行排列，得乘积取最小值即可。</p>
+<h3 id="AC-代码-6"><a href="#AC-代码-6" class="headerlink" title="AC 代码"></a>AC 代码</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getVal</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 略去高位为 0</span></span><br><span class="line">    <span class="keyword">if</span>(nums[<span class="number">0</span>] == <span class="number">0</span> || nums[<span class="number">3</span>] == <span class="number">0</span>) <span class="keyword">return</span> INT_MAX;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">0</span>, b = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++)</span><br><span class="line">        a = a * <span class="number">10</span> + nums[i];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">3</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">        b = b * <span class="number">10</span> + nums[i];</span><br><span class="line">    <span class="keyword">return</span> a * b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">nums</span><span class="params">(<span class="number">5</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; nums[i];</span><br><span class="line">    <span class="comment">// 从小到大排序，为获取排列做准备</span></span><br><span class="line">    sort(nums.begin(), nums.end());</span><br><span class="line">    <span class="keyword">int</span> ans = INT_MAX;</span><br><span class="line">    <span class="keyword">while</span>(next_permutation(nums.begin(), nums.end()))</span><br><span class="line">        ans = min(ans, getVal(nums));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:verfolgen17@gmail.com">Class</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://classitblog.com/Contest/21AHCPC-Pre/">https://classitblog.com/Contest/21AHCPC-Pre/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Contest/">Contest</a><a class="post-meta__tags" href="/tags/Two-Pointers/">Two Pointers</a><a class="post-meta__tags" href="/tags/Math/">Math</a><a class="post-meta__tags" href="/tags/Greedy/">Greedy</a><a class="post-meta__tags" href="/tags/DFS/">DFS</a><a class="post-meta__tags" href="/tags/Dp/">Dp</a><a class="post-meta__tags" href="/tags/Dichotomy/">Dichotomy</a><a class="post-meta__tags" href="/tags/Prune/">Prune</a><a class="post-meta__tags" href="/tags/Bitwise/">Bitwise</a></div><div class="post_share"><div class="social-share" data-image="/img/cover/d.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/Contest/LCCUP-21Spring-P/"><img class="next-cover" src="/images/cover/LCCUP-21Spring-P.png" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">LCCUP'21 春季赛 个人赛题解</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> Related Articles</span></div><div class="relatedPosts-list"><div><a href="/Contest/LCCUP-21Spring-P/" title="LCCUP'21 春季赛 个人赛题解"><img class="cover" src="/images/cover/LCCUP-21Spring-P.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-04-06</div><div class="title">LCCUP'21 春季赛 个人赛题解</div></div></a></div><div><a href="/Algorithms/ZJU_DataStructure/Graphs/BasicGraph/" title="Basic Graph"><img class="cover" src="/images/cover/BasicGraph.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-25</div><div class="title">Basic Graph</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/favicon.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Class</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">22</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">36</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">8</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Class-17"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Class-17" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:verfolgen17@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">21AHCPC-Pre Solutions Uploaded!</div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-%E6%9C%80%E7%BE%8E%E5%90%88%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text">A. 最美合数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%AF%B4%E6%98%8E"><span class="toc-number">1.2.</span> <span class="toc-text">输入说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%AF%B4%E6%98%8E"><span class="toc-number">1.3.</span> <span class="toc-text">输出说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text">输入样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B"><span class="toc-number">1.5.</span> <span class="toc-text">输出样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4%E5%8F%8A%E6%8F%90%E7%A4%BA"><span class="toc-number">1.6.</span> <span class="toc-text">数据范围及提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="toc-number">1.7.</span> <span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-%E4%BB%A3%E7%A0%81"><span class="toc-number">1.8.</span> <span class="toc-text">AC 代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-%E5%8C%BA%E9%97%B4%E9%87%8D%E5%8F%A0"><span class="toc-number">2.</span> <span class="toc-text">B. 区间重叠</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-1"><span class="toc-number">2.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%AF%B4%E6%98%8E-1"><span class="toc-number">2.2.</span> <span class="toc-text">输入说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%AF%B4%E6%98%8E-1"><span class="toc-number">2.3.</span> <span class="toc-text">输出说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B-1"><span class="toc-number">2.4.</span> <span class="toc-text">输入样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B-1"><span class="toc-number">2.5.</span> <span class="toc-text">输出样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4%E5%8F%8A%E6%8F%90%E7%A4%BA-1"><span class="toc-number">2.6.</span> <span class="toc-text">数据范围及提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-1"><span class="toc-number">2.7.</span> <span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-%E4%BB%A3%E7%A0%81-1"><span class="toc-number">2.8.</span> <span class="toc-text">AC 代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E8%B6%85%E7%BA%A7%E5%B9%82%E7%A7%AF"><span class="toc-number">3.</span> <span class="toc-text">C. 超级幂积</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-2"><span class="toc-number">3.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%AF%B4%E6%98%8E-2"><span class="toc-number">3.2.</span> <span class="toc-text">输入说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%AF%B4%E6%98%8E-2"><span class="toc-number">3.3.</span> <span class="toc-text">输出说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B-2"><span class="toc-number">3.4.</span> <span class="toc-text">输入样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B-2"><span class="toc-number">3.5.</span> <span class="toc-text">输出样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-2"><span class="toc-number">3.6.</span> <span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-%E4%BB%A3%E7%A0%81-2"><span class="toc-number">3.7.</span> <span class="toc-text">AC 代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#D-%E6%9C%80%E4%BC%98%E8%B4%9F%E8%BD%BD"><span class="toc-number">4.</span> <span class="toc-text">D. 最优负载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-3"><span class="toc-number">4.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%AF%B4%E6%98%8E-3"><span class="toc-number">4.2.</span> <span class="toc-text">输入说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%AF%B4%E6%98%8E-3"><span class="toc-number">4.3.</span> <span class="toc-text">输出说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B-3"><span class="toc-number">4.4.</span> <span class="toc-text">输入样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B-3"><span class="toc-number">4.5.</span> <span class="toc-text">输出样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4%E5%8F%8A%E6%8F%90%E7%A4%BA-2"><span class="toc-number">4.6.</span> <span class="toc-text">数据范围及提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-3"><span class="toc-number">4.7.</span> <span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-%E4%BB%A3%E7%A0%81-3"><span class="toc-number">4.8.</span> <span class="toc-text">AC 代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#E-%E9%87%8D%E7%BB%84%E5%B0%8F%E6%A3%8D%E6%A3%92"><span class="toc-number">5.</span> <span class="toc-text">E. 重组小棍棒</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-4"><span class="toc-number">5.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%AF%B4%E6%98%8E-4"><span class="toc-number">5.2.</span> <span class="toc-text">输入说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%AF%B4%E6%98%8E-4"><span class="toc-number">5.3.</span> <span class="toc-text">输出说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B-4"><span class="toc-number">5.4.</span> <span class="toc-text">输入样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B-4"><span class="toc-number">5.5.</span> <span class="toc-text">输出样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4%E5%8F%8A%E6%8F%90%E7%A4%BA-3"><span class="toc-number">5.6.</span> <span class="toc-text">数据范围及提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-4"><span class="toc-number">5.7.</span> <span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-%E4%BB%A3%E7%A0%81-4"><span class="toc-number">5.8.</span> <span class="toc-text">AC 代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#F-%E5%8C%BA%E9%97%B4%E5%BC%82%E6%88%96"><span class="toc-number">6.</span> <span class="toc-text">F. 区间异或</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-5"><span class="toc-number">6.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%AF%B4%E6%98%8E-5"><span class="toc-number">6.2.</span> <span class="toc-text">输入说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%AF%B4%E6%98%8E-5"><span class="toc-number">6.3.</span> <span class="toc-text">输出说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B-5"><span class="toc-number">6.4.</span> <span class="toc-text">输入样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B-5"><span class="toc-number">6.5.</span> <span class="toc-text">输出样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4%E5%8F%8A%E6%8F%90%E7%A4%BA-4"><span class="toc-number">6.6.</span> <span class="toc-text">数据范围及提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-5"><span class="toc-number">6.7.</span> <span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-%E4%BB%A3%E7%A0%81-5"><span class="toc-number">6.8.</span> <span class="toc-text">AC 代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#G-%E6%9C%80%E5%B0%8F%E4%B9%98%E7%A7%AF"><span class="toc-number">7.</span> <span class="toc-text">G. 最小乘积</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0-6"><span class="toc-number">7.1.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E8%AF%B4%E6%98%8E-6"><span class="toc-number">7.2.</span> <span class="toc-text">输入说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E8%AF%B4%E6%98%8E-6"><span class="toc-number">7.3.</span> <span class="toc-text">输出说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%A0%B7%E4%BE%8B-6"><span class="toc-number">7.4.</span> <span class="toc-text">输入样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%A0%B7%E4%BE%8B-6"><span class="toc-number">7.5.</span> <span class="toc-text">输出样例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4%E5%8F%8A%E6%8F%90%E7%A4%BA-5"><span class="toc-number">7.6.</span> <span class="toc-text">数据范围及提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF-6"><span class="toc-number">7.7.</span> <span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AC-%E4%BB%A3%E7%A0%81-6"><span class="toc-number">7.8.</span> <span class="toc-text">AC 代码</span></a></li></ol></li></ol></div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/Contest/21AHCPC-Pre/" title="2021安徽省大学生程序设计大赛网络赛-题解"><img src="/img/cover/d.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="2021安徽省大学生程序设计大赛网络赛-题解"/></a><div class="content"><a class="title" href="/Contest/21AHCPC-Pre/" title="2021安徽省大学生程序设计大赛网络赛-题解">2021安徽省大学生程序设计大赛网络赛-题解</a><time datetime="2021-04-25T12:00:00.000Z" title="Created 2021-04-25 20:00:00">2021-04-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Contest/LCCUP-21Spring-P/" title="LCCUP'21 春季赛 个人赛题解"><img src="/images/cover/LCCUP-21Spring-P.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="LCCUP'21 春季赛 个人赛题解"/></a><div class="content"><a class="title" href="/Contest/LCCUP-21Spring-P/" title="LCCUP'21 春季赛 个人赛题解">LCCUP'21 春季赛 个人赛题解</a><time datetime="2021-04-06T01:00:00.000Z" title="Created 2021-04-06 09:00:00">2021-04-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/SortExpand/" title="Sort Expand"><img src="/images/cover/SortExpand.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Sort Expand"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/SortExpand/" title="Sort Expand">Sort Expand</a><time datetime="2021-03-29T10:00:00.000Z" title="Created 2021-03-29 18:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/RadixSort/" title="Radix Sort"><img src="/images/cover/RadixSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Radix Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/RadixSort/" title="Radix Sort">Radix Sort</a><time datetime="2021-03-29T06:00:00.000Z" title="Created 2021-03-29 14:00:00">2021-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/Algorithms/ZJU_DataStructure/Sort/MergeSort/" title="Merge Sort"><img src="/images/cover/MergeSort.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Merge Sort"/></a><div class="content"><a class="title" href="/Algorithms/ZJU_DataStructure/Sort/MergeSort/" title="Merge Sort">Merge Sort</a><time datetime="2021-03-29T05:00:00.000Z" title="Created 2021-03-29 13:00:00">2021-03-29</time></div></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Class</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    loader: {
+      source: {
+        '[tex]/amsCd': '[tex]/amscd'
+      }
+    },
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        addClass: [200,() => {
+          document.querySelectorAll('mjx-container:not([display=\'true\']').forEach( node => {
+            const target = node.parentNode
+            if (!target.classList.contains('has-jax')) {
+              target.classList.add('mathjax-overflow')
+            }
+          })
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script>(function(){
+  const bp = document.createElement('script');
+  const curProtocol = window.location.protocol.split(':')[0];
+  if (curProtocol === 'https'){
+  bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+  }
+  else{
+  bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  }
+  bp.dataset.pjax = ''
+  const s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(bp, s);
+})()</script></div></body></html>
